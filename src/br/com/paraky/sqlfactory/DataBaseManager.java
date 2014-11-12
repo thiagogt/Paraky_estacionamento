@@ -64,19 +64,19 @@ public class DataBaseManager extends Server {
             
             
             
-            
-            
-                         connection.prepareStatement("create table barcodes (id integer, barcode varchar(20) not null);").execute();
-            connection.prepareStatement("insert into CartaAtendimento (cod_atendimento, status, descricao)" 
-                    + "values (1, 'k','legal');").execute();
+//     EXEMPLO DE CHAMADA DE QUERY       
 //            
-            // query from the db
-            rs = connection.prepareStatement("select cod_atendimento, status, descricao  from CartaAtendimento;").executeQuery();
-            rs.next();
-            
-           
-            System.out.println(String.format("cod: %d, Status: %s, Decricao: %s", rs.getInt(1), rs.getString(2),rs.getString(3)));
-     
+//                         connection.prepareStatement("create table barcodes (id integer, barcode varchar(20) not null);").execute();
+//            connection.prepareStatement("insert into CartaAtendimento (cod_atendimento, status, descricao)" 
+//                    + "values (1, 'k','legal');").execute();
+////            
+//            // query from the db
+//            rs = connection.prepareStatement("select cod_atendimento, status, descricao  from CartaAtendimento;").executeQuery();
+//            rs.next();
+//            
+//           
+//            System.out.println(String.format("cod: %d, Status: %s, Decricao: %s", rs.getInt(1), rs.getString(2),rs.getString(3)));
+//     
         } catch (SQLException e2) {
             e2.printStackTrace();
         } catch (ClassNotFoundException e2) {
