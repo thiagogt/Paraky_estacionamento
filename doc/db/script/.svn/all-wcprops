@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/parakyestacionamento/!svn/ver/2/ParakyEstacionamentos/doc/db/script
+END
+create_db.sql
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/parakyestacionamento/!svn/ver/2/ParakyEstacionamentos/doc/db/script/create_db.sql
+END
+populate.sql
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/parakyestacionamento/!svn/ver/2/ParakyEstacionamentos/doc/db/script/populate.sql
+END
