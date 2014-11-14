@@ -15,8 +15,9 @@ public class Main {
 		// TODO Auto-generated method stub
 		
 			try {				
-				ConnectionDBFactory.createDataBaseServer();
-				ConnectionDBFactory.startDataBaseServer();
+				//ConnectionDBFactory.createDataBaseServer();
+				//ConnectionDBFactory.startDataBaseServer();
+				ConnectionDBFactory.createDataBase();
 				ConnectionDBFactory.testaConexao();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

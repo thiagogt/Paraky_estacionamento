@@ -33,18 +33,7 @@ public class ConnectionDBFactory extends Server {
 	}
 	
 	
-	public static void startDataBaseServer() throws IOException{
-		hsqlServer.start();
-		try{
-			createDataBase();
-			
-		}
-		catch(Exception e){
-			System.out.println("Erro ao tentar criar Base de dados:");
-			System.out.println(e.getMessage());
-		}
-   		
-	}
+	
 	public static Connection getDataBaseConnection() throws SQLException, ClassNotFoundException{
 		
 		String driver = AppProperties.defaultProps.getProperty("createDataBase.driver");
@@ -77,7 +66,7 @@ public class ConnectionDBFactory extends Server {
 				connection = getDataBaseConnection();
 				makeConnectionAcceptOracleSyntax(connection);
 				
-				if(!databaseExists()){
+				if(!databaseExists(connection)){
 					CreateDB(connection);
 					PopulateDB(connection);
 				}
@@ -93,15 +82,26 @@ public class ConnectionDBFactory extends Server {
 	}
 	
  
-	private static boolean databaseExists() {
-		
-		String dataBasePath = AppProperties.defaultProps.getProperty("populateDataBaseFile.dataBasePath");
-		
-		
-		File f = new File(dataBasePath);
-		if(f.exists() && !f.isDirectory())
-			return true;
-		return false;
+	private static boolean databaseExists(Connection connection) throws SQLException {
+		boolean dataBaseExist = false;
+		try{
+			connection =	getDataBaseConnection();
+			ResultSet rs = null;
+			rs = connection.prepareStatement("select * from sample_table").executeQuery();
+		    rs.next();
+		    dataBaseExist = true;
+		    
+		    
+		}
+		catch(Exception e){
+			System.out.println("Nao existe tabela");
+			System.out.println(e.getMessage());
+			
+		}
+		finally{
+			connection.close();	
+			return dataBaseExist;
+		}
 	}
 
 
@@ -167,7 +167,7 @@ public class ConnectionDBFactory extends Server {
 			rs = connection.prepareStatement("select * from sample_table").executeQuery();
 		    rs.next();
 		    
-		    System.out.println(String.format("nome: %s, numero: %d", rs.getString(1), rs.getInt(2)));
+		    System.out.println(String.format("nome: %s, numero: %d", rs.getString(2), rs.getInt(1)));
 		}
 		catch(Exception e){
 			System.out.println("Erro no teste");
