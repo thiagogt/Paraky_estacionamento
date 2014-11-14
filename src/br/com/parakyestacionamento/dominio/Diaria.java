@@ -1,5 +1,5 @@
 package br.com.parakyestacionamento.dominio;
 
-public class VagaCliente {
+public class Diaria {
 
 }

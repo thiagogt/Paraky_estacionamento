@@ -1,0 +1,1 @@
+ALTER TABLE cliente ADD CONSTRAINT fk_familiar_cliente FOREIGN KEY (id_titular_vaga) REFERENCES cliente (id_cliente) ON UPDATE CASCADE ON DELETE CASCADE;

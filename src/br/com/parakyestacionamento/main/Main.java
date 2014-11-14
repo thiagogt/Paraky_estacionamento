@@ -19,6 +19,7 @@ public class Main {
 				//ConnectionDBFactory.startDataBaseServer();
 				ConnectionDBFactory.createDataBase();
 				ConnectionDBFactory.testaConexao();
+				ConnectionDBFactory.testaConsultaCliente();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
