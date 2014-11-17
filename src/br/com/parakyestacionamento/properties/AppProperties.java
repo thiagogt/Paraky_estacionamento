@@ -12,7 +12,8 @@ public class AppProperties {
 			defaultProps = new Properties();
 		    
 			try {
-				in = new FileInputStream("/Users/itaimac/doc/app.properties");
+				String localBase = "/Users/itaimac/workspace/Paraky_estacionamento/";
+				in = new FileInputStream(localBase+"doc/app.properties");
 				defaultProps.load(in);
 				in.close();
 			} catch (FileNotFoundException e) {

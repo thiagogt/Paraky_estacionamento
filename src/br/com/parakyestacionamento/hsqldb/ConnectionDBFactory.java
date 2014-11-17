@@ -21,13 +21,18 @@ public class ConnectionDBFactory extends Server {
 	public static String populateDataBaseFile;
 	
 	public static void createDataBaseServer() throws IOException, SQLException, ClassNotFoundException{
+
 		
+		String dataBaseBasePath = AppProperties.defaultProps.getProperty("baseFile");
+        String dataBaseBaseName = dataBaseBasePath+AppProperties.defaultProps.getProperty("createDataBase.dataBaseName");
+        String dataBaseBaseFullPath = AppProperties.defaultProps.getProperty("createDataBase.bdPath");
+       
 		
         hsqlServer = new Server();
         hsqlServer.setLogWriter(null);
         hsqlServer.setSilent(true);
-        hsqlServer.setDatabaseName(0, "ParakyEDB");
-        hsqlServer.setDatabasePath(0, "file:doc/db/parakyDB");
+        hsqlServer.setDatabaseName(0, dataBaseBaseName);
+        hsqlServer.setDatabasePath(0, "file:"+dataBaseBaseFullPath);
         
 	}
 	
@@ -35,6 +40,7 @@ public class ConnectionDBFactory extends Server {
 	
 	public static Connection getDataBaseConnection() throws SQLException, ClassNotFoundException{
 		
+		String dataBaseBasePath = AppProperties.defaultProps.getProperty("baseFile");
 		String driver = AppProperties.defaultProps.getProperty("createDataBase.driver");
 		String url = AppProperties.defaultProps.getProperty("createDataBase.url");
 		String username = AppProperties.defaultProps.getProperty("createDataBase.username");
@@ -81,6 +87,10 @@ public class ConnectionDBFactory extends Server {
 	}
 	
  
+	
+
+
+
 	private static boolean databaseExists(Connection connection) throws SQLException {
 		boolean dataBaseExist = false;
 		try{
@@ -105,14 +115,23 @@ public class ConnectionDBFactory extends Server {
 
 
 	private static void CreateDB(Connection connection) throws FileNotFoundException, SQLException, ClassNotFoundException {
-		createDataBaseFile = AppProperties.defaultProps.getProperty("createDataBase.ScriptPath");
+		String dataBaseBasePath = AppProperties.defaultProps.getProperty("baseFile");
+		createDataBaseFile = dataBaseBasePath+AppProperties.defaultProps.getProperty("createDataBase.ScriptPath");
 		FileReader resourceAsStream = new FileReader(createDataBaseFile);
 		executeScript(connection,resourceAsStream);
-	
+		AlteraDB(connection);
 	}
 
+	private static  void AlteraDB(Connection connection) throws FileNotFoundException, SQLException {
+		String dataBaseBasePath = AppProperties.defaultProps.getProperty("baseFile");
+		String alterDataBaseFile = dataBaseBasePath+AppProperties.defaultProps.getProperty("alterDataBase.ScriptPath");
+		FileReader resourceAsStream = new FileReader(alterDataBaseFile);
+		executeScript(connection,resourceAsStream);
+		
+	}
 	private static void PopulateDB(Connection connection) throws FileNotFoundException, SQLException {
-		populateDataBaseFile = AppProperties.defaultProps.getProperty("populateDataBaseFile.ScriptPath");
+		String dataBaseBasePath = AppProperties.defaultProps.getProperty("baseFile");
+		populateDataBaseFile = dataBaseBasePath+AppProperties.defaultProps.getProperty("populateDataBaseFile.ScriptPath");
 		FileReader resourceAsStream = new FileReader(populateDataBaseFile);
 		executeScript(connection,resourceAsStream);
 		
