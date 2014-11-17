@@ -87,7 +87,7 @@ public class ConnectionDBFactory extends Server {
 		try{
 			connection =	getDataBaseConnection();
 			ResultSet rs = null;
-			rs = connection.prepareStatement("select * from versao_bd").executeQuery();
+			rs = connection.prepareStatement("select * from version_bd").executeQuery();
 		    rs.next();
 		    dataBaseExist = true;
 		    
@@ -157,48 +157,7 @@ public class ConnectionDBFactory extends Server {
 
 	
 
-	public static void testaConexao() throws  ClassNotFoundException, SQLException {
-		
-		Connection connection = null;
-		
-		try{
-			connection =	getDataBaseConnection();
-			ResultSet rs = null;
-			rs = connection.prepareStatement("select * from versao_bd").executeQuery();
-		    rs.next();
-		    
-		    System.out.println(String.format("versao bd %s", rs.getString(2)));
-		}
-		catch(Exception e){
-			System.out.println("Erro no teste");
-			System.out.println(e.getMessage());
-		}
-		finally{
-			connection.close();	
-		}
-	    
-	}
-	public static void testaConsultaCliente() throws  ClassNotFoundException, SQLException {
-		
-		Connection connection = null;
-		
-		try{
-			connection =	getDataBaseConnection();
-			ResultSet rs = null;
-			rs = connection.prepareStatement("select * from cliente").executeQuery();
-		    rs.next();
-		    
-		    System.out.println(String.format("cliente cpf %s", rs.getString(4)));
-		}
-		catch(Exception e){
-			System.out.println("Erro no teste");
-			System.out.println(e.getMessage());
-		}
-		finally{
-			connection.close();	
-		}
-	    
-	}
+	
 
 	private static void makeConnectionAcceptOracleSyntax(Connection connection) throws SQLException {
 		

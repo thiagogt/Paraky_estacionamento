@@ -18,18 +18,14 @@ public class Main {
 				//ConnectionDBFactory.createDataBaseServer();
 				//ConnectionDBFactory.startDataBaseServer();
 				ConnectionDBFactory.createDataBase();
-				ConnectionDBFactory.testaConexao();
-				ConnectionDBFactory.testaConsultaCliente();
+				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} 
 		
 	}
 
