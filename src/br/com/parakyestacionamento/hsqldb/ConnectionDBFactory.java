@@ -1,7 +1,6 @@
 package br.com.parakyestacionamento.hsqldb;
 
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -100,8 +99,8 @@ public class ConnectionDBFactory extends Server {
 		}
 		finally{
 			connection.close();	
-			return dataBaseExist;
 		}
+		return dataBaseExist;
 	}
 
 

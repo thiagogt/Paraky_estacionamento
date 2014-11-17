@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.junit.Test;
-import org.omg.PortableInterceptor.SUCCESSFUL;
 
 import br.com.parakyestacionamento.hsqldb.ConnectionDBFactory;
 

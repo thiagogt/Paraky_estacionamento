@@ -12,7 +12,7 @@ public class AppProperties {
 			defaultProps = new Properties();
 		    
 			try {
-				in = new FileInputStream("doc/app.properties");
+				in = new FileInputStream("/Users/itaimac/doc/app.properties");
 				defaultProps.load(in);
 				in.close();
 			} catch (FileNotFoundException e) {
