@@ -1,0 +1,12 @@
+h1{
+	color:blue;
+}
+.ui-widget{
+	display: block;
+	border-bottom: solid 1px #bcc7cf;
+	font-size:1em; 
+	left: 1px;
+}
+.ui-corner-all{
+	border-radius: 20px;
+}

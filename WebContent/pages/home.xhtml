@@ -3,18 +3,64 @@
 <html
 	xmlns= "http://www.w3.org/1999/xhtml"  
 	xmlns:f="http://java.sun.com/jsf/core"  
-	xmlns:h="http://java.sun.com/jsf/html" >
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui">
 	<h:head>
-		<title>Test Tags</title>
+		<link href="../style/style.css" rel="stylesheet" type="text/css"/>
+		<title>Paraky</title>
 			
 	</h:head>
 	<h:body>
 		<h1 >Paraky Estacionamento</h1>
-		<fieldset>
+		
 		<h:form>
-			Testando : <h:inputText/><br/>
-			Button: <h:commandButton value="Click Me (But Nothing Will Happen)"/>
-			</h:form>
-		</fieldset>
+			<p:growl id="messages"/>
+ 
+    <p:menubar >
+        <p:submenu label="Diárias" icon="ui-icon-document">
+            <p:submenu label="Nova" icon="ui-icon-contact">
+                <p:menuitem value="Project" url="#" />
+                <p:menuitem value="Other" url="#" />
+            </p:submenu>
+            <p:menuitem value="Fechar" url="#" />
+            <p:separator />
+            <p:menuitem value="Tickets" url="#" />
+        </p:submenu>
+ 
+        <p:submenu label="Cadastros" icon="ui-icon-pencil">
+            <p:menuitem value="Cliente" url="#" icon="ui-icon-arrowreturnthick-1-w" />
+            <p:menuitem value="Familiar" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+            <p:menuitem value="Carro" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+            <p:menuitem value="Endereço" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+        </p:submenu>
+ 
+        <p:submenu label="Relatórios" icon="ui-icon-help">
+            <p:menuitem value="Contents" url="#" />
+            <p:submenu label="Search" icon="ui-icon-search">
+                <p:submenu label="Text">
+                    <p:menuitem value="Workspace" url="#" />
+                </p:submenu>
+                <p:menuitem value="File" url="#" />
+            </p:submenu>
+        </p:submenu>
+ 
+        <p:submenu label="Actions" icon="ui-icon-gear">
+            <p:submenu label="Ajax" icon="ui-icon-refresh">
+                <p:menuitem value="Save" actionListener="#{menuView.save}" icon="ui-icon-disk" update="messages"/>
+                <p:menuitem value="Update" actionListener="#{menuView.update}" icon="ui-icon-arrowrefresh-1-w" update="messages"/>
+            </p:submenu>
+            <p:submenu label="Non-Ajax" icon="ui-icon-newwin">
+                <p:menuitem value="Delete" actionListener="#{menuView.delete}" icon="ui-icon-close" update="messages" ajax="false"/>
+            </p:submenu>
+        </p:submenu>
+ 
+        <p:menuitem id="quit" value="Quit" url="http://www.primefaces.org" icon="ui-icon-close" />
+ 
+        
+    </p:menubar>	
+			
+		</h:form>
+		
+		
 	</h:body>
 </html>
