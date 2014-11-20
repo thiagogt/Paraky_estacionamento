@@ -1,6 +1,7 @@
 package br.com.parakyestacionamento.hsqldb;
 
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,6 +12,8 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import org.hsqldb.Server;
+import org.hsqldb.persist.HsqlProperties;
+import org.hsqldb.server.ServerAcl.AclFormatException;
 
 import br.com.parakyestacionamento.properties.AppProperties;
 
@@ -19,20 +22,38 @@ public class ConnectionDBFactory extends Server {
 	public static Server hsqlServer = null;
 	public static String createDataBaseFile;
 	public static String populateDataBaseFile;
+	public static String dataBaseBasePath; 
+	public static String driver; 
+	public static String url ;
+	public static String username ;
+	public static String password; 
+	public static Connection connection;
 	
-	public static void createDataBaseServer() throws IOException, SQLException, ClassNotFoundException{
+	static{
+		dataBaseBasePath = AppProperties.defaultProps.getProperty("baseFile");
+		driver = AppProperties.defaultProps.getProperty("createDataBase.driver");
+		url = AppProperties.defaultProps.getProperty("createDataBase.url");
+		username = AppProperties.defaultProps.getProperty("createDataBase.username");
+		password = AppProperties.defaultProps.getProperty("createDataBase.password");
+	}
+	
+	public static void createDataBaseServer() throws IOException, SQLException, ClassNotFoundException, AclFormatException{
 
 		
 		String dataBaseBasePath = AppProperties.defaultProps.getProperty("baseFile");
         String dataBaseBaseName = dataBaseBasePath+AppProperties.defaultProps.getProperty("createDataBase.dataBaseName");
         String dataBaseBaseFullPath = AppProperties.defaultProps.getProperty("createDataBase.bdPath");
        
-		
+        HsqlProperties p = new HsqlProperties();
+        p.setProperty("server.database.0", "file:"+dataBaseBaseFullPath);
+        p.setProperty("server.dbname.0", dataBaseBaseName);
+        p.setProperty("server.port", "9001");
+        p.setProperty("hsqldb.lock_file", false);
         hsqlServer = new Server();
+        hsqlServer.setProperties(p);
         hsqlServer.setLogWriter(null);
         hsqlServer.setSilent(true);
-        hsqlServer.setDatabaseName(0, dataBaseBaseName);
-        hsqlServer.setDatabasePath(0, "file:"+dataBaseBaseFullPath);
+        hsqlServer.start();
         
 	}
 	
@@ -40,19 +61,34 @@ public class ConnectionDBFactory extends Server {
 	
 	public static Connection getDataBaseConnection() throws SQLException, ClassNotFoundException{
 		
-		String dataBaseBasePath = AppProperties.defaultProps.getProperty("baseFile");
-		String driver = AppProperties.defaultProps.getProperty("createDataBase.driver");
-		String url = AppProperties.defaultProps.getProperty("createDataBase.url");
-		String username = AppProperties.defaultProps.getProperty("createDataBase.username");
-		String password = AppProperties.defaultProps.getProperty("createDataBase.password");
 		
-		Class.forName(driver);
-       return  DriverManager.getConnection(url, username, password); // can through sql exception
+			Class.forName(driver);
+			connection = DriverManager.getConnection(url, username, password);
+			deletLockFile();
+		
+       return  connection; // can through sql exception
       
 	}
 	
-	
-	public static void closeDataBaseServer() throws IOException, SQLException, ClassNotFoundException{
+	/*The lockFile was making impossible to get any connection. 
+	 * Perhaps there is another way instead deleying the file..but this work!*/
+	private static void deletLockFile() {
+		try{
+			String baseFile = AppProperties.defaultProps.getProperty("baseFile");
+			String lockFilePath = baseFile+AppProperties.defaultProps.getProperty("lockfileDataBase"); 
+    		File file = new File(lockFilePath);
+ 
+    	}catch(Exception e){
+ 
+    		System.out.println("erro ao deletar arquivo lock:" + e);
+ 
+    	}
+		
+	}
+
+
+
+	public static void closeDataBaseServer() throws IOException, SQLException, ClassNotFoundException, AclFormatException{
 		if(hsqlServer == null)
 			createDataBaseServer();
 		hsqlServer.stop();
@@ -81,9 +117,9 @@ public class ConnectionDBFactory extends Server {
         } catch (ClassNotFoundException e2) {
             e2.printStackTrace();
         }
-		finally{
-			connection.close();
-		}
+//		finally{
+//			connection.close();
+//		}
 	}
 	
  
