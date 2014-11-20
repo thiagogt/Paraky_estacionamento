@@ -77,7 +77,7 @@ public class ConnectionDBFactory extends Server {
 			String baseFile = AppProperties.defaultProps.getProperty("baseFile");
 			String lockFilePath = baseFile+AppProperties.defaultProps.getProperty("lockfileDataBase"); 
     		File file = new File(lockFilePath);
- 
+    		file.delete();
     	}catch(Exception e){
  
     		System.out.println("erro ao deletar arquivo lock:" + e);

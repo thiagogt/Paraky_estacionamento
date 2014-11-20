@@ -35,5 +35,23 @@ public class MonthlyPaymentModelBDTest {
 	    
 	}
 	
+	@Test
+	public void shouldSelectMonthlyPaymentId_1() throws  ClassNotFoundException, SQLException {
+		
+		try{
+			
+			MonthlyPaymentBDModel newModelBD = new MonthlyPaymentBDModel();
+			MonthlyPayment monthlyPayment = newModelBD.select(1);
+			System.out.println("Esse eh status do 1: "+monthlyPayment.getPaymentStatus());
+			assertTrue(true);
+			
+		}
+		catch(Exception e){
+			fail("Erro no teste shouldSelectMonthlyPaymentId_1 "+e.getMessage());
+		}
+		
+	    
+	}
+	
 
 }

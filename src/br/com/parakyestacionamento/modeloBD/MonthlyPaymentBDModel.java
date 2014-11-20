@@ -50,42 +50,60 @@ public class MonthlyPaymentBDModel implements BDModel{
 	public List<Object> selectAll() throws SQLException{
 		
 		Connection connection = null;
-			try {
-				connection =	ConnectionDBFactory.getDataBaseConnection();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			ResultSet rs = null;
-			
-			rs = connection.prepareStatement("select * from monthly_payment").executeQuery();
-			List<Object> monthlyList = resultSetListToObjectList(rs);
-		    
-			connection.close();
+		try {
+			connection =	ConnectionDBFactory.getDataBaseConnection();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ResultSet rs = null;
+		
+		rs = connection.prepareStatement("select * from monthly_payment").executeQuery();
+		List<Object> monthlyList = resultSetListToObjectList(rs);
+	    
+		connection.close();
+		
 		return monthlyList;
 	}
 
 	@Override
 	public MonthlyPayment select(int id) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Connection connection = null;
+		try {
+			connection =	ConnectionDBFactory.getDataBaseConnection();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ResultSet rs = null;
+		
+		rs = connection.prepareStatement("select * from monthly_payment where id_monthly_payment ="+id).executeQuery();
+		rs.next();
+		MonthlyPayment monthlyList = bdToObject(rs);
+	    
+		connection.close();
+		
+		return monthlyList;
 	}
 	
 	@Override
-	public int insert(String data) throws SQLException{
+	public int insert(Object data) throws SQLException{
+		//TODO
+		MonthlyPayment monthlyPayment = (MonthlyPayment)data;
+		return 0;
+	}
+
+	@Override
+	public int delete(int data) throws SQLException{
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int delete(String data) throws SQLException{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int update(String data) throws SQLException{
-		// TODO Auto-generated method stub
+	public int update(Object data) throws SQLException{
+		//TODO
+		MonthlyPayment monthlyPayment = (MonthlyPayment)data;
 		return 0;
 	}
 
