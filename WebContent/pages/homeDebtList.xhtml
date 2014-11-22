@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+	xmlns= "http://www.w3.org/1999/xhtml"  
+	xmlns:f="http://java.sun.com/jsf/core"  
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:head>
+		<link href="../style/style.css" rel="stylesheet" type="text/css"/>
+		<title>Paraky</title>
+			
+	</h:head>
+	<h:body>
+		<h:form>
+			<p:growl id="messages"/>
+			
+			<div class="header_paraky">
+				<ui:insert name="header" >
+				  <ui:include src="headerParaky.xhtml" />
+				</ui:insert>
+			</div>
+
+			<div class="description_title">
+				
+				<spam>Devedores</spam>
+				
+			</div>
+			
+			<div class="data_table_center_page">
+				<p:dataTable var="clientDebt" value="#{monthlyPayment.debtList}" >
+			        <p:column headerText="Cliente" sortBy="#{clientDebt.name}">
+			            <h:outputText value="#{clientDebt.name} #{clientDebt.lastName} " />
+			        </p:column>
+			        <p:column headerText="Dia do pagamento" sortBy="#{clientDebt.paymentDate}">
+			            <h:outputText value="#{clientDebt.paymentDate}" />
+			        </p:column>
+			        <p:column headerText="Dias devendo" sortBy="#{clientDebt.daysOfDebt}">
+			            <h:outputText value="#{clientDebt.daysOfDebt}" />
+			        </p:column>
+			        <p:column headerText="Telefone 1" sortBy="#{clientDebt.tel_1}">
+			            <h:outputText value="#{clientDebt.tel_1}" />
+			        </p:column>
+			        <p:column headerText="Telefone 2" sortBy="#{clientDebt.tel_2}">
+			            <h:outputText value="#{clientDebt.tel_2}" />
+			        </p:column>
+			        <p:column headerText="E-mail" sortBy="#{clientDebt.email}">
+			            <h:outputText value="#{clientDebt.email}" />
+			        </p:column>
+			        <p:column headerText="Divida" sortBy="#{clientDebt.parkingSpaceCost}">
+			            <h:outputText value="R$#{clientDebt.parkingSpaceCost}" />
+			        </p:column>
+			        <p:column headerText="Pago" sortBy="#{clientDebt.paymentStatus}">
+				        <p:selectBooleanCheckbox value="#{clientDebt.paymentStatus}" />
+			        </p:column>
+			        
+			    </p:dataTable>
+			</div>
+			
+			
+			<div class="submit_buttons_lower_page">
+			    <p:commandButton value="Salvar" icon="ui-icon-check" />
+ 			</div>			
+		</h:form>
+	</h:body>
+</html>

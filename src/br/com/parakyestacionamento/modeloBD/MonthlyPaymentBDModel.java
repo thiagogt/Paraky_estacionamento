@@ -7,16 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.parakyestacionamento.dominio.MonthlyPayment;
+import br.com.parakyestacionamento.dominio.MonthlyPaymentPerClient;
 import br.com.parakyestacionamento.hsqldb.ConnectionDBFactory;
 
 public class MonthlyPaymentBDModel implements BDModel{
 
 	
-
-	public List<Object> resultSetListToObjectList(ResultSet rs)
+	@Override
+	public List<MonthlyPayment> resultSetListToObjectList(ResultSet rs)
 			throws SQLException {
 			
-		List<Object> records= new ArrayList<Object>();
+		List<MonthlyPayment> records= new ArrayList<MonthlyPayment>();
 		while(rs.next()){
 		    
 		    records.add(bdToObject(rs));
@@ -41,13 +42,11 @@ public class MonthlyPaymentBDModel implements BDModel{
 
 	@Override
 	public String objectToBd() {
-		
-		
 		return null;
 	}
 
 	@Override
-	public List<Object> selectAll() throws SQLException{
+	public List<MonthlyPayment> selectAll() throws SQLException{
 		
 		Connection connection = null;
 		try {
@@ -59,13 +58,13 @@ public class MonthlyPaymentBDModel implements BDModel{
 		ResultSet rs = null;
 		
 		rs = connection.prepareStatement("select * from monthly_payment").executeQuery();
-		List<Object> monthlyList = resultSetListToObjectList(rs);
+		List<MonthlyPayment> monthlyList = resultSetListToObjectList(rs);
 	    
 		connection.close();
 		
 		return monthlyList;
 	}
-
+	
 	@Override
 	public MonthlyPayment select(int id) throws SQLException {
 		
@@ -107,7 +106,7 @@ public class MonthlyPaymentBDModel implements BDModel{
 		return 0;
 	}
 
-
+	
 	
 
 

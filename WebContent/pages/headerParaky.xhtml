@@ -12,35 +12,40 @@ xmlns= "http://www.w3.org/1999/xhtml"
  <ui:composition>
 <img id="image_header" src="../images/paraky.svg" alt="Mountain View" style="width:304px;height:228px"/>
     	<p:menubar >
+    	<p:submenu label="Home" icon="ui-icon-contact">
+            <p:menuitem value="Lista de devedores" url="homeDebtList.jsf" />
+            <p:menuitem value="Pagamentos do mes atual" url="homeMounthList.jsf" />
+        </p:submenu>
        	 <p:submenu label="Diárias" icon="ui-icon-document">
-       	 <p:menuitem value="Nova diária" url="#" />
-            <p:menuitem value="Fechar diária" url="#" />
-            <p:menuitem value="Consultar Tickets" url="#" />
+       	 <p:menuitem value="Nova diária" url="newDaily.jsf" />
+            <p:menuitem value="Fechar diária" url="closeTicket.jsf" />
+            <p:menuitem value="Consultar Tickets" url="ConsultPreviusTickets.jsf" />
         </p:submenu>
  		<p:submenu label="Vagas" icon="ui-icon-contact">
-            <p:menuitem value="Criar/Editar vaga" url="#" />
-            <p:menuitem value="Consultar vaga" url="#" />
+            <p:menuitem value="Criar vaga" url="createParkingSpace.jsf" />
+            <p:menuitem value="Editar vaga" url="editParkingSpace.jsf" />
         </p:submenu>
         <p:submenu label="Mensalistas" icon="ui-icon-contact">
             <p:submenu label="Cliente" >
-                <p:menuitem value="Criar/Editar cliente" url="#" />
-                <p:menuitem value="Consultar cliente" url="#" />
+                <p:menuitem value="Criar cliente" url="createClient.jsf" />
+                <p:menuitem value="Editar cliente" url="editClient.jsf" />
             </p:submenu>
             <p:submenu label="Familiar" >
-                <p:menuitem value="Criar/Editar familiar" url="#" />
-                <p:menuitem value="Consultar familiar" url="#" />
+                <p:menuitem value="Criar familiar" url="createParent.jsf" />
+                <p:menuitem value="Editar familiar" url="editParent.jsf" />
             </p:submenu>
         </p:submenu>
         <p:submenu label="Carros" icon="ui-icon-contact">
-            <p:menuitem value="Criar/Editar carro" url="#" />
-            <p:menuitem value="Consultar carro" url="#" />
+            <p:menuitem value="Criar carro" url="createCar.jsf" />
+            <p:menuitem value="Editar carro" url="editCar.jsf" />
         </p:submenu>
         <p:submenu label="Endereços" icon="ui-icon-contact">
-            <p:menuitem value="Criar/Editar endereço" url="#" />
-            <p:menuitem value="Consultar endereço" url="#" />
+            <p:menuitem value="Criar endereço" url="createAdress.jsf" />
+            <p:menuitem value="Editar endereço" url="editAdress.jsf" />
         </p:submenu>
  
-        <p:submenu label="Relatórios" icon="ui-icon-document">
+        <p:submenu label="Relatórios" icon="ui-icon-document" >
+                   <p:menuitem value="Relatorios" url="report.jsf"/>
         </p:submenu>
  
         <p:menuitem id="Sair"  value="Quit" url="http://www.primefaces.org" icon="ui-icon-close" />

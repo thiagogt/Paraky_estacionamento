@@ -1,11 +1,9 @@
-h1{
-	color:blue;
-}
-
+/*======================== HEADER - logo and menu =============================*/
 .ui-menu {
 	
-	position: relative;
-	top:95px;
+	position: absolute;
+	top: 96px;
+	left: 18em;
 	
 }
 .ui-corner-all{
@@ -27,7 +25,6 @@ h1{
 	display: block;
 	width: 100%;
 	height: 140px;
-	float: left;
 	
 }
 #image_header{
@@ -35,3 +32,47 @@ h1{
 	top: -50px;
 	position: relative;
 }
+
+/*======================== PAGE TITLE =============================*/
+
+.description_title {
+	position: relative;
+	top : 30px;
+	background-color:#A2C6CD;
+	display: block;
+		
+}
+
+.description_title spam{
+	font-family:monospace;
+	font-size: 2em;
+	position: relative;
+}
+/*======================== SUBMIT BUTTONS =============================*/
+
+.submit_buttons_lower_page{
+	position: relative;
+	top : 30px;
+	font-size: 1em;
+	float: right;
+	right: 2em;
+	
+}
+
+
+/*======================== DATA TABLE =============================*/
+
+.data_table_center_page{
+	position: relative;
+	top : 10px;
+	font-size: 0.8em;
+	
+}
+
+.ui-datatable thead th{
+	background-color:#e3e3e3; 
+}
+
+.ui-widget {
+font-family: Monospace;
+font-size: 1.2em;

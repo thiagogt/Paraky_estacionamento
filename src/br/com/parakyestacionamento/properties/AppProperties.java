@@ -12,7 +12,7 @@ public class AppProperties {
 			defaultProps = new Properties();
 		    
 			try {
-				String localBase = "/Users/itaimac/workspace/Paraky_estacionamento/";
+				String localBase = "C:/Users/Thiago/Documents/engenhariaDeSoftware/Paraky_estacionamento/";
 				in = new FileInputStream(localBase+"doc/app.properties");
 				defaultProps.load(in);
 				in.close();

@@ -12,16 +12,25 @@
 			
 	</h:head>
 	<h:body>
-	<h:form>
-	<p:growl id="messages"/>
+		<h:form>
+			<p:growl id="messages"/>
+			
+			<div class="header_paraky">
+				<ui:insert name="header" >
+				  <ui:include src="headerParaky.xhtml" />
+				</ui:insert>
+			</div>
+
+			<div class="description_title">
+				
+				<spam>Nova Diaria</spam>
+				
+			</div>
+			
 	
-	<div class="header_paraky">
-		<ui:insert name="header" >
-		  <ui:include src="headerParaky.xhtml" />
-		</ui:insert>
-	</div>
-		
+			<div class="submit_buttons_lower_page">
+			    <p:commandButton value="Submit" icon="ui-icon-check" />
+ 			</div>			
 		</h:form>
-		
 	</h:body>
 </html>

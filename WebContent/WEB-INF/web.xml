@@ -33,7 +33,7 @@
     <param-value>client</param-value>
   </context-param>
   <listener>
-    <listener-class>com.br.parakyEstacionamento.listener.ParakyListener</listener-class>
+    <listener-class>br.com.parakyestacionamento.listener.ParakyListener</listener-class>
   </listener>
   <welcome-file-list>
     <welcome-file>index.jsf</welcome-file>
