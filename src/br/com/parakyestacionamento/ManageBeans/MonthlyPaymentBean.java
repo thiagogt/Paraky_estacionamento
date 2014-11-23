@@ -6,8 +6,11 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.ActionEvent;
 
 import br.com.parakyestacionamento.dominio.MonthlyPaymentPerClient;
+import br.com.parakyestacionamento.dominio.ParakyMessage;
+import br.com.parakyestacionamento.modeloBD.MonthlyPaymentBDModel;
 import br.com.parakyestacionamento.modeloBD.MonthlyPaymentPerClientModelBD;
 
 @SessionScoped
@@ -30,6 +33,20 @@ public class MonthlyPaymentBean {
 		}
 	}
 
+	public void saveDebtList(ActionEvent event){
+		
+		
+		MonthlyPaymentBDModel monthlyPaymentBdModel = new MonthlyPaymentBDModel();
+		for (MonthlyPaymentPerClient debtClient : debtList) {
+			try {
+				monthlyPaymentBdModel.updateDebt(debtClient.getIdMonthlyPayment(), debtClient.getPaymentStatus());
+			} catch (SQLException e) {
+				ParakyMessage.addMessage("Nao foi possivel salvar lista. Problema com a divida do cliente "+debtClient.getName()+" "+debtClient.getLastName());
+			}
+		}
+		ParakyMessage.addMessage("Lista salva com sucesso!");
+		debtList = null;
+	}
 
 	public List<MonthlyPaymentPerClient> getDebtList() {
 		if(debtList == null)
@@ -55,6 +72,6 @@ public class MonthlyPaymentBean {
 	}
 
 
-
+	
 	
 }

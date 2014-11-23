@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.hsqldb.Server;
 import org.hsqldb.persist.HsqlProperties;
 import org.hsqldb.server.ServerAcl.AclFormatException;
@@ -64,29 +65,10 @@ public class ConnectionDBFactory extends Server {
 		
 			Class.forName(driver);
 			connection = DriverManager.getConnection(url, username, password);
-			deletLockFile();
 		
        return  connection; // can through sql exception
       
 	}
-	
-	/*The lockFile was making impossible to get any connection. 
-	 * Perhaps there is another way instead deleying the file..but this work!*/
-	private static void deletLockFile() {
-		try{
-			String baseFile = AppProperties.defaultProps.getProperty("baseFile");
-			String lockFilePath = baseFile+AppProperties.defaultProps.getProperty("lockfileDataBase"); 
-    		File file = new File(lockFilePath);
-    		file.delete();
-    	}catch(Exception e){
- 
-    		System.out.println("erro ao deletar arquivo lock:" + e);
- 
-    	}
-		
-	}
-
-
 
 	public static void closeDataBaseServer() throws IOException, SQLException, ClassNotFoundException, AclFormatException{
 		if(hsqlServer == null)

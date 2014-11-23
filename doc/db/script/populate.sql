@@ -10,7 +10,7 @@ INSERT INTO daily_payment(id_daily_payment,id_car_charged,cost,checkin,checkout)
 
 INSERT INTO parking_space(id_parking_space ,id_client_owner,pay_day,type_parking_space,contract_date,parking_space_cost) values (1,1,13,'carro','2008-08-22 05:30:20.000000000',200.00);
 
-INSERT INTO monthly_payment(id_monthly_payment,id_parking_space, payment_status,payment_date ) values(1,1,'pago','2008-09-13 12:00:00.000000000');
-INSERT INTO monthly_payment(id_monthly_payment,id_parking_space, payment_status,payment_date ) values(2,1,'devendo','2008-10-13 12:00:00.000000000');
+INSERT INTO monthly_payment(id_monthly_payment,id_parking_space, payment_status,payment_date ) values(1,1,true,'2008-09-13 12:00:00.000000000');
+INSERT INTO monthly_payment(id_monthly_payment,id_parking_space, payment_status,payment_date ) values(2,1,false,'2008-10-13 12:00:00.000000000');
 
 INSERT INTO adress(id_adress,id_client_adress,street,number,complement,neighborhood,city,country) values(1,1,'Rua teste','001A','apto23','Limoeiro','São Paulo','Brasil');

@@ -38,7 +38,7 @@ parking_space_cost double);
 CREATE TABLE monthly_payment( 
 id_monthly_payment INTEGER IDENTITY,
 id_parking_space INTEGER NOT NULL,
-payment_status VARCHAR(256),
+payment_status boolean,
 payment_date DATE);
 
 CREATE TABLE adress( 

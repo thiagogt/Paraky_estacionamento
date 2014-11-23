@@ -11,7 +11,6 @@ public interface BDModel {
 
 	
 	public Object bdToObject(ResultSet rs) throws SQLException;
-	public String objectToBd() throws SQLException;
 	public Object select(int id ) throws SQLException;
 	public int insert(Object data ) throws SQLException;
 	public int delete(int id ) throws SQLException;

@@ -1,13 +1,15 @@
 package br.com.parakyestacionamento.modeloBD;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import br.com.parakyestacionamento.dominio.MonthlyPayment;
-import br.com.parakyestacionamento.dominio.MonthlyPaymentPerClient;
 import br.com.parakyestacionamento.hsqldb.ConnectionDBFactory;
 
 public class MonthlyPaymentBDModel implements BDModel{
@@ -40,10 +42,7 @@ public class MonthlyPaymentBDModel implements BDModel{
 		return monthlyPayment;
 	}
 
-	@Override
-	public String objectToBd() {
-		return null;
-	}
+	
 
 	@Override
 	public List<MonthlyPayment> selectAll() throws SQLException{
@@ -84,6 +83,30 @@ public class MonthlyPaymentBDModel implements BDModel{
 		connection.close();
 		
 		return monthlyList;
+	}
+	
+	public void updateDebt(int id,boolean debt) throws SQLException {
+		
+		Connection connection = null;
+		try {
+			connection =	ConnectionDBFactory.getDataBaseConnection();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+
+		Calendar  calGenerate = Calendar.getInstance();
+		java.sql.Date actualDate = new java.sql.Date(calGenerate.getTime().getTime());
+		
+		PreparedStatement stmt = connection.prepareStatement("update monthly_payment set payment_status=?,payment_date=?  where id_monthly_payment =?");
+		stmt.setBoolean(1, debt);
+		stmt.setDate(2, actualDate);
+		stmt.setInt(3, id);
+		stmt.executeUpdate();
+		
+		connection.close();
+		
 	}
 	
 	@Override

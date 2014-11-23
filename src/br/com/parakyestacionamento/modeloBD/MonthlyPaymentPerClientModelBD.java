@@ -21,19 +21,13 @@ public class MonthlyPaymentPerClientModelBD implements BDModel{
 		monthlyPayment.setEmail(rs.getString(5));
 		monthlyPayment.setIdMonthlyPayment(rs.getInt(6));
 		monthlyPayment.setIdParkingSpace(rs.getInt(7));
-		monthlyPayment.setPaymentStatus(rs.getString(8));
+		monthlyPayment.setPaymentStatus(rs.getBoolean(8));
 		java.util.Date newDate = rs.getTimestamp(9);
 		monthlyPayment.setPaymentDate(newDate);
 		monthlyPayment.setParkingSpaceCost(rs.getDouble(10));
 		
 		
 		return monthlyPayment;
-	}
-
-	@Override
-	public String objectToBd() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -88,7 +82,7 @@ public class MonthlyPaymentPerClientModelBD implements BDModel{
 		}
 		ResultSet rs = null;
 		
-		rs = connection.prepareStatement("select client.name, client.last_name,client.tel_1,client.tel_2,client.email,parking_debt.id_monthly_payment ,parking_debt.id_parking_space ,parking_debt.payment_status,parking_debt.payment_date, parking_debt.parking_space_cost from client natural join (select * from monthly_payment mp natural join parking_space ps where payment_status='devendo') as parking_debt where client.id_owner_parking_space is null").executeQuery();
+		rs = connection.prepareStatement("select client.name, client.last_name,client.tel_1,client.tel_2,client.email,parking_debt.id_monthly_payment ,parking_debt.id_parking_space ,parking_debt.payment_status,parking_debt.payment_date, parking_debt.parking_space_cost from client natural join (select * from monthly_payment mp natural join parking_space ps where payment_status=false) as parking_debt where client.id_owner_parking_space is null").executeQuery();
 		List<MonthlyPaymentPerClient> monthlyList = resultSetListToObjectList(rs);
 	    
 		connection.close();

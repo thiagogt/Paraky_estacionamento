@@ -6,7 +6,7 @@ public class MonthlyPaymentPerClient {
 
 	private int idMonthlyPayment ;
 	private int idParkingSpace ;
-	private String paymentStatus ;
+	private boolean paymentStatus ;
 	private Date paymentDate ;
 	private String name;
 	private String lastName ;
@@ -29,10 +29,10 @@ public class MonthlyPaymentPerClient {
 	public void setIdParkingSpace(int idParkingSpace) {
 		this.idParkingSpace = idParkingSpace;
 	}
-	public String getPaymentStatus() {
+	public boolean getPaymentStatus() {
 		return paymentStatus;
 	}
-	public void setPaymentStatus(String paymentStatus) {
+	public void setPaymentStatus(boolean paymentStatus) {
 		this.paymentStatus = paymentStatus;
 	}
 	public Date getPaymentDate() {

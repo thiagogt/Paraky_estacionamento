@@ -49,6 +49,44 @@ public class MonthlyPaymentModelBDTest {
 		
 	    
 	}
+	@Test
+	public void shouldUpdateStatusMonthlyPaymentId_1_toTrue() throws  ClassNotFoundException, SQLException {
+		
+		try{
+			
+			MonthlyPaymentBDModel newModelBD = new MonthlyPaymentBDModel();
+			newModelBD.updateDebt(1, true);
+			MonthlyPayment monthlyPayment = newModelBD.select(1);
+			System.out.println("Esse eh status do 1: "+monthlyPayment.getPaymentStatus()+" com a nova data pagamento: "+monthlyPayment.getPaymentDate().toString());
+			assertTrue(true);
+			
+		}
+		catch(Exception e){
+			fail("Erro no teste shouldUpdateStatusMonthlyPaymentId_2_toTrue "+e.getMessage());
+		}
+		
+	    
+	}
+	
+	@Test
+	public void shouldUpdateStatusMonthlyPaymentId_1_toFalse() throws  ClassNotFoundException, SQLException {
+		
+		try{
+			
+			MonthlyPaymentBDModel newModelBD = new MonthlyPaymentBDModel();
+			newModelBD.updateDebt(1, false);
+			MonthlyPayment monthlyPayment = newModelBD.select(1);
+			System.out.println("Esse eh status do 1: "+monthlyPayment.getPaymentStatus()+" com a nova data pagamento: "+monthlyPayment.getPaymentDate().toString());
+			assertTrue(true);
+			
+		}
+		catch(Exception e){
+			fail("Erro no teste shouldUpdateStatusMonthlyPaymentId_2_toFalse "+e.getMessage());
+		}
+		
+	    
+	}
+	
 	
 
 }
