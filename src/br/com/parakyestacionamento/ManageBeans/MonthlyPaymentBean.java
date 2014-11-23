@@ -1,6 +1,7 @@
 package br.com.parakyestacionamento.ManageBeans;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -18,6 +19,45 @@ import br.com.parakyestacionamento.modeloBD.MonthlyPaymentPerClientModelBD;
 public class MonthlyPaymentBean {
 
 	private List<MonthlyPaymentPerClient> debtList;
+	
+	
+	public List<MonthlyPaymentPerClient> selectAllMounthPayers(){
+		
+		MonthlyPaymentPerClientModelBD monthlyPaymentBdPerClientModel = new MonthlyPaymentPerClientModelBD();
+		List<MonthlyPaymentPerClient> actualMounthPaymentList = new ArrayList<MonthlyPaymentPerClient>();
+		try {
+			List<MonthlyPaymentPerClient> allPayers = monthlyPaymentBdPerClientModel.selectAllPayersClient();
+			for (MonthlyPaymentPerClient monthlyPaymentPerClient : allPayers) {
+				if(theClientPaysthisMounth(monthlyPaymentPerClient)){
+					actualMounthPaymentList.add(monthlyPaymentPerClient);
+				}
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("Erro ao buscar por mensalidades desse mes: "+e.getMessage());
+			System.out.println(e);
+		}
+		return actualMounthPaymentList;
+	}
+
+	
+	private boolean theClientPaysthisMounth(MonthlyPaymentPerClient monthlyPaymentPerClient) {
+		
+		 int actualMounth = Calendar.getInstance().get(Calendar.MONTH);
+		 int actualYear = Calendar.getInstance().get(Calendar.YEAR);
+		 
+		 Calendar cal = Calendar.getInstance();
+		 cal.setTime(monthlyPaymentPerClient.getPaymentDate());
+		 int monthFromPayment = cal.get(Calendar.MONTH);
+		 int yaerFromPayment = cal.get(Calendar.YEAR);
+		 
+		 if(actualMounth == monthFromPayment)
+			 if(actualYear == yaerFromPayment)
+				 return true;
+		return false;
+	}
+
+
 	private String actualMounth;
 	
 	public void selectAllClientsDebt(){
@@ -70,6 +110,13 @@ public class MonthlyPaymentBean {
 	public void setActualMounth(String actualMounth) {
 		this.actualMounth = actualMounth;
 	}
+
+
+	public List<MonthlyPaymentPerClient> getActualMounthPaymentList() {
+		return selectAllMounthPayers();
+	}
+
+
 
 
 	

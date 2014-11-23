@@ -90,6 +90,23 @@ public class MonthlyPaymentPerClientModelBD implements BDModel{
 		return monthlyList;
 	}
 
-	
+	public List<MonthlyPaymentPerClient> selectAllPayersClient() throws SQLException{
+		
+		Connection connection = null;
+		try {
+			connection =	ConnectionDBFactory.getDataBaseConnection();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ResultSet rs = null;
+		
+		rs = connection.prepareStatement("select client.name, client.last_name,client.tel_1,client.tel_2,client.email,parking_debt.id_monthly_payment ,parking_debt.id_parking_space ,parking_debt.payment_status,parking_debt.payment_date, parking_debt.parking_space_cost from client natural join (select * from monthly_payment mp natural join parking_space ps where payment_status=true) as parking_debt where client.id_owner_parking_space is null").executeQuery();
+		List<MonthlyPaymentPerClient> monthlyList = resultSetListToObjectList(rs);
+	    
+		connection.close();
+		
+		return monthlyList;
+	}
 	
 }
