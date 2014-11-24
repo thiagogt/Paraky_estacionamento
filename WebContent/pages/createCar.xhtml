@@ -12,7 +12,7 @@
 			
 	</h:head>
 	<h:body>
-		<h:form>
+		<h:form id="form">
 			<p:growl id="messages"/>
 			
 			<div class="header_paraky">
@@ -27,9 +27,38 @@
 				
 			</div>
 			
-	
+			<div class="form_body">
+				<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+			        <p:outputLabel for="client" value="Dono do carro:" />
+			        <p:selectOneMenu id="client" value="#{clientBean.clientSelected}">
+			        	<f:selectItem itemLabel="Selecione..."/>  
+			          
+			        	<f:selectItems   value="#{clientBean.clientList}"  
+                               var="client"  
+                               itemValue="#{client}"  
+                               itemLabel="#{client.name}"/>  
+			          </p:selectOneMenu>
+			 		
+
+					<p:outputLabel for="carPlate" value="Placa:" />
+				 	<p:inputText id="carPlate" value="#{carBean.newCar.carPlate}" />
+				 				 	
+				 	<p:outputLabel for="year" value="Ano de fabricacao:" />
+				 	<p:inputText id="year" value="#{carBean.newCar.yearManufacture}" />
+				 	
+				 	<p:outputLabel for="color" value="Cor:" />
+				 	<p:inputText id="color" value="#{carBean.newCar.color}" />
+				 	
+				 	<p:outputLabel for="model" value="Modelo:" />
+				 	<p:inputText id="model" value="#{carBean.newCar.model}" />
+				 	
+				 	<p:outputLabel for="carBrand" value="Marca:" />
+				 	<p:inputText id="carBrand" value="#{carBean.newCar.carBrand}" />
+				</h:panelGrid>
+			</div>
+			
 			<div class="submit_buttons_lower_page">
-			    <p:commandButton value="Submit" icon="ui-icon-check" />
+			    <p:commandButton value="Salvar" icon="ui-icon-check" update="form" actionListener="#{carBean.saveNewCar}"/>
  			</div>			
 		</h:form>
 	</h:body>

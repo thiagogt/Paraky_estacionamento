@@ -8,17 +8,19 @@
 }
 .ui-corner-all{
 	
-	position: relative;
 	border-color: #e3e3e3;
-	/* border-radius: 20px; */
-	display: block;
 	border-bottom: solid 1px #bcc7cf;
 	font-size:1em; 
 	left: 1px;
-	 float: left; 
-	 background-color:#e3e3e3;  
+	background-color:#e3e3e3;  
 }
 
+.menu_bar_header{
+	position: relative;
+	left:18em;
+	width: 100%;
+	display: block;
+}
 .header_paraky{
 	
 	background-color: #e3e3e3;
@@ -76,3 +78,14 @@
 .ui-widget {
 font-family: Monospace;
 font-size: 1.2em;
+
+}
+/*========================== FORM_BODY ============================*/
+
+.form_body{
+	top:3em;
+	position:relative;
+	co
+}
+
+

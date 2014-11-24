@@ -9,10 +9,6 @@ public class Car {
 	private String carPlate ; 
 	private String carBrand ;
 	
-	public Car(String newCarPlate){
-		this.carPlate = newCarPlate;
-	}
-
 	public int getIdCar() {
 		return idCar;
 	}
