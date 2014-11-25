@@ -45,7 +45,7 @@
 				 				 	
 				 	<p:outputLabel for="year" value="Ano de fabricacao:" />
 				 	<p:inputText id="year" value="#{carBean.newCar.yearManufacture}"  validatorMessage="O ano deve ter  ate 8 digitos. Apenas numeros sao aceitos.">
-				 		<f:validateDoubleRange minimum="0" maximum="8" />
+				 		<f:validateDoubleRange minimum="0" maximum="99999999" />
 				 	</p:inputText>
 				 	
 				 	<p:outputLabel for="color" value="Cor:" />
