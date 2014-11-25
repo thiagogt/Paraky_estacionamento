@@ -12,7 +12,7 @@
 			
 	</h:head>
 	<h:body>
-		<h:form>
+		<h:form id="form">
 			<p:growl id="messages"/>
 			
 			<div class="header_paraky">
@@ -27,10 +27,49 @@
 				
 			</div>
 			
-	
-			<div class="submit_buttons_lower_page">
-			    <p:commandButton value="Submit" icon="ui-icon-check" />
- 			</div>			
+			
+			<div id="table" class="data_table_center_page">
+				<p:dataTable var="car" editable="true" value="#{carBean.carList}" >
+				
+					<p:ajax event="rowEdit" listener="#{carBean.onRowEdit}" update=":form" />
+			        <p:column headerText="Marca" sortBy="#{car.carBrand}">
+				        <p:cellEditor>
+				            <f:facet name="output"><h:outputText value="#{car.carBrand}" /></f:facet>
+				            <f:facet name="input"><p:inputText  value="#{car.carBrand}" /></f:facet>
+			            </p:cellEditor>
+			        </p:column>
+			        <p:column headerText="Modelo" sortBy="#{car.model}">
+				        <p:cellEditor>
+				        	<f:facet name="output"><h:outputText value="#{car.model}" /></f:facet>
+				            <f:facet name="input"><p:inputText  value="#{car.model}" /></f:facet>
+			            </p:cellEditor>
+			        </p:column>
+			        <p:column headerText="Ano de fabricacao" sortBy="#{car.yearManufacture}">
+				        <p:cellEditor>
+				        	<f:facet name="output"><h:outputText value="#{car.yearManufacture}" /></f:facet>
+				            <f:facet name="input"><p:inputText  value="#{car.yearManufacture}" /></f:facet>
+			            </p:cellEditor>
+			        </p:column>
+			        <p:column headerText="Cor" sortBy="#{car.color}">
+				        <p:cellEditor>
+					        <f:facet name="output"><h:outputText value="#{car.color}" /></f:facet>
+				            <f:facet name="input"><p:inputText  value="#{car.color}" /></f:facet>
+				        </p:cellEditor>
+			        </p:column>
+			        <p:column headerText="Placa" sortBy="#{car.carPlate}">
+				        <p:cellEditor>
+       				        <f:facet name="output"><h:outputText value="#{car.carPlate}" /></f:facet>
+				            <f:facet name="input"><p:inputText  value="#{car.carPlate}" /></f:facet>
+				        </p:cellEditor>
+			        </p:column>
+			        <p:column style="width:32px">
+						<p:rowEditor />
+					</p:column>		        
+			    </p:dataTable>
+			</div>
+			
 		</h:form>
+	
 	</h:body>
+	
 </html>

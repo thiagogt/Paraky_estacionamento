@@ -1,10 +1,15 @@
 package br.com.parakyestacionamento.ManageBeans;
 
 import java.sql.SQLException;
+import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+
+import org.primefaces.event.RowEditEvent;
 
 import br.com.parakyestacionamento.dominio.Car;
 import br.com.parakyestacionamento.dominio.ParakyMessage;
@@ -16,7 +21,7 @@ public class CarBean {
 
 	private int idClientSelected=0;
 	private Car newCar;
-	
+	private List<Car> carList;
 	
 	
 	public void saveNewCar(ActionEvent event){
@@ -50,6 +55,12 @@ public class CarBean {
 		return null;
 	}
 
+	
+	 public void onRowEdit(RowEditEvent event) {
+	        FacesMessage msg = new FacesMessage("Car Edited", ((Car) event.getObject()).getModel());
+	        FacesContext.getCurrentInstance().addMessage(null, msg);
+	    }
+	
 	public Car getNewCar() {
 		if(newCar==null)
 			newCar = new Car();
@@ -66,6 +77,24 @@ public class CarBean {
 
 	public void setIdClientSelected(int idClientSelected) {
 		this.idClientSelected = idClientSelected;
+	}
+
+	public List<Car> getCarList() {
+		if(carList == null){
+			CarModelBD model = new CarModelBD();
+			try {
+				carList = model.selectAll();
+			} catch (SQLException e) {
+				ParakyMessage.addErrorMessage("Erro ao consultar todos os carros!","Contate o administrador do sistema.");
+				System.out.println("Erro ao inserir novo carro: "+e.getMessage());
+				System.out.println(e);
+			}
+		}
+		return carList;
+	}
+
+	public void setCarList(List<Car> carList) {
+		this.carList = carList;
 	}
 
 

@@ -44,8 +44,8 @@
 				 	<p:inputText id="carPlate" value="#{carBean.newCar.carPlate}" required="true" requiredMessage="Deve ser cadastrada uma placa!" />
 				 				 	
 				 	<p:outputLabel for="year" value="Ano de fabricacao:" />
-				 	<p:inputText id="year" value="#{carBean.newCar.yearManufacture}"  validatorMessage="O ano deve ter entre 4 e 8 digitos. Apenas numeros sao aceitos.">
-				 		<f:validateDoubleRange minimum="4" maximum="8" />
+				 	<p:inputText id="year" value="#{carBean.newCar.yearManufacture}"  validatorMessage="O ano deve ter  ate 8 digitos. Apenas numeros sao aceitos.">
+				 		<f:validateDoubleRange minimum="0" maximum="8" />
 				 	</p:inputText>
 				 	
 				 	<p:outputLabel for="color" value="Cor:" />
