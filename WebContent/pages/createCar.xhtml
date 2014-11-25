@@ -30,21 +30,23 @@
 			<div class="form_body">
 				<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
 			        <p:outputLabel for="client" value="Dono do carro:" />
-			        <p:selectOneMenu id="client" value="#{clientBean.clientSelected}">
-			        	<f:selectItem itemLabel="Selecione..."/>  
+			        <p:selectOneMenu id="client" value="#{carBean.idClientSelected}">
+			        	<f:selectItem itemLabel="Selecione..." itemValue="0"/>  
 			          
 			        	<f:selectItems   value="#{clientBean.clientList}"  
                                var="client"  
-                               itemValue="#{client}"  
+                               itemValue="#{client.idClient}"  
                                itemLabel="#{client.name}"/>  
 			          </p:selectOneMenu>
 			 		
 
 					<p:outputLabel for="carPlate" value="Placa:" />
-				 	<p:inputText id="carPlate" value="#{carBean.newCar.carPlate}" />
+				 	<p:inputText id="carPlate" value="#{carBean.newCar.carPlate}" required="true" requiredMessage="Deve ser cadastrada uma placa!" />
 				 				 	
 				 	<p:outputLabel for="year" value="Ano de fabricacao:" />
-				 	<p:inputText id="year" value="#{carBean.newCar.yearManufacture}" />
+				 	<p:inputText id="year" value="#{carBean.newCar.yearManufacture}"  validatorMessage="O ano deve ter entre 4 e 8 digitos. Apenas numeros sao aceitos.">
+				 		<f:validateDoubleRange minimum="4" maximum="8" />
+				 	</p:inputText>
 				 	
 				 	<p:outputLabel for="color" value="Cor:" />
 				 	<p:inputText id="color" value="#{carBean.newCar.color}" />
@@ -58,7 +60,7 @@
 			</div>
 			
 			<div class="submit_buttons_lower_page">
-			    <p:commandButton value="Salvar" icon="ui-icon-check" update="form" actionListener="#{carBean.saveNewCar}"/>
+			    <p:commandButton value="Salvar" icon="ui-icon-check" update="form" ajax="false" actionListener="#{carBean.saveNewCar}"/>
  			</div>			
 		</h:form>
 	</h:body>

@@ -63,5 +63,30 @@ public class CarBDTest {
 	    
 	}
 	
+	public void shouldSeeCarSequence() throws  ClassNotFoundException, SQLException {
+		
+		Connection connection = null;
+		try{
+			connection =	ConnectionDBFactory.getDataBaseConnection();
+			ResultSet rs = null;
+			rs = connection.prepareStatement("SELECT car_sequence.nextval as car_sequence from DUAL").executeQuery();
+		    rs.next();
+		    int idClient = rs.getInt(2);
+		  
+		    rs = connection.prepareStatement("select * from client where id_client="+idClient).executeQuery();
+		    rs.next();
+		    
+		    System.out.println(String.format("Nome do dono: %s %s", rs.getString(2), rs.getString(3)));
+		    assertTrue("", true);
+		}
+		catch(Exception e){
+			fail("Erro no teste shouldSeeCarOwner "+e.getMessage());
+		}
+		finally{
+			connection.close();	
+		}
+	    
+	}
+	
 	
 }

@@ -3,20 +3,18 @@ package br.com.parakyestacionamento.ManageBeans;
 import java.sql.SQLException;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-import javax.inject.Inject;
 
 import br.com.parakyestacionamento.dominio.Car;
 import br.com.parakyestacionamento.dominio.ParakyMessage;
 import br.com.parakyestacionamento.model.CarModelBD;
 
-@SessionScoped
+@ViewScoped
 @ManagedBean(name="carBean")
 public class CarBean {
 
-	@Inject
-	private ClientBean clientBean;
+	private int idClientSelected=0;
 	private Car newCar;
 	
 	
@@ -24,13 +22,34 @@ public class CarBean {
 	public void saveNewCar(ActionEvent event){
 		CarModelBD carModel = new CarModelBD();
 		try {
-			newCar.setIdClientCar(clientBean.getClientSelected().getIdClient());
-			carModel.insert(newCar);
+			String errorMessage = allTheFieldsAreCorrets();
+			if(errorMessage != null)
+				ParakyMessage.addErrorMessage(errorMessage);
+			else{
+				newCar.setIdClientCar(idClientSelected);
+				carModel.insert(newCar);
+				ParakyMessage.addMessage("Cadastro realizado com sucesso!");
+			}
 		} catch (SQLException e) {
-			ParakyMessage.addMessage("Erro ao salvar carro! Nao foi possivel inserir dado no banco de dados.");
+			ParakyMessage.addErrorMessage("Erro ao salvar carro!"," Nao foi possivel inserir dado no banco de dados. Contate o administrador do sistema.");
+			System.out.println("Erro ao inserir novo carro: "+e.getMessage());
+			System.out.println(e);
 		}
 	}
 	
+	private String allTheFieldsAreCorrets() throws SQLException {
+		CarModelBD model = new CarModelBD();
+		
+		
+		if(idClientSelected == 0)
+			return "Escolha um cliente para ser dono desse novo carro.";
+		if(model.verifyIfCarPlateExists(newCar.getCarPlate()))
+			return "Essa placa ja existe cadastrada na base de dados.";
+		
+				
+		return null;
+	}
+
 	public Car getNewCar() {
 		if(newCar==null)
 			newCar = new Car();
@@ -41,12 +60,15 @@ public class CarBean {
 		this.newCar = newCar;
 	}
 
-	public ClientBean getClientBean() {
-		return clientBean;
+	public int getIdClientSelected() {
+		return idClientSelected;
 	}
 
-	public void setClientBean(ClientBean clientBean) {
-		this.clientBean = clientBean;
+	public void setIdClientSelected(int idClientSelected) {
+		this.idClientSelected = idClientSelected;
 	}
+
+
+
 	
 }
