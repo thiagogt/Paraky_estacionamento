@@ -72,7 +72,28 @@ public class CarModelBD implements BDModel{
 
 	@Override
 	public int update(Object data) throws SQLException {
-		// TODO Auto-generated method stub
+		Connection connection = null;
+		try {
+			connection =	ConnectionDBFactory.getDataBaseConnection();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+
+		Car car = (Car)data;
+		PreparedStatement stmt = connection.prepareStatement("update car set model=?, " +
+				"year_manufacture =?,color=?,car_plate=?,car_brand=? where id_car = ?");
+		stmt.setString(1, car.getModel());
+		stmt.setInt(2, car.getYearManufacture());
+		stmt.setString(3, car.getColor());
+		stmt.setString(4, car.getCarPlate());
+		stmt.setString(5, car.getCarBrand());
+		stmt.setInt(6, car.getIdCar());
+		stmt.executeUpdate();
+		
+		connection.close();
+
 		return 0;
 	}
 

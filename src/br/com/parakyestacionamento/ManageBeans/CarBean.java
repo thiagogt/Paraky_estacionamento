@@ -3,10 +3,8 @@ package br.com.parakyestacionamento.ManageBeans;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.primefaces.event.RowEditEvent;
@@ -57,10 +55,29 @@ public class CarBean {
 
 	
 	 public void onRowEdit(RowEditEvent event) {
-	        FacesMessage msg = new FacesMessage("Car Edited", ((Car) event.getObject()).getModel());
-	        FacesContext.getCurrentInstance().addMessage(null, msg);
+		 
+		 	CarModelBD model = new CarModelBD();
+		 	Car carEdited =  ((Car) event.getObject());
+		 	String message = verifyIfEditCarIsCorrect(carEdited);
+		 	if(message!=null)
+		 		ParakyMessage.addErrorMessage(message);
+		 	else{
+			 	try {
+					model.update(carEdited);
+					ParakyMessage.addMessage(" "+carEdited.getCarBrand()+" "+carEdited.getModel()+" editado com sucesso!");
+				} catch (SQLException e) {
+					ParakyMessage.addErrorMessage("Erro ao editar carro!","Contate o administrador do sistema.");
+					System.out.println("Erro ao inserir novo carro: "+e.getMessage());
+					System.out.println(e);			}
+		 	}
+		 	 
 	    }
 	
+	private String verifyIfEditCarIsCorrect(Car carEdited) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	public Car getNewCar() {
 		if(newCar==null)
 			newCar = new Car();

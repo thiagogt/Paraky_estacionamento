@@ -94,5 +94,38 @@ public class CarModelBDTest {
 		    
 	}
 
+		@Test
+		public void shouldUpdateCarId_1() throws  ClassNotFoundException, SQLException {
+			
+			try{
+				CarModelBD newModelBD = new CarModelBD();
+				Car car = new Car();
+				car.setIdCar(1);
+				car.setIdClientCar(1);
+				car.setYearManufacture(1900);
+				car.setColor("teste");
+				car.setModel("teste");
+		    	
+				car.setCarPlate("testeDeUpdate");
+				car.setCarBrand("teste");
+				
+				newModelBD.update(car);
+				
+				List<Car> carList = newModelBD.selectAll();
+				
+				for (Car car2 : carList) {
+					System.out.println(" Carro id: "+car2.getIdCar()+" carOwner :"+car2.getIdClientCar()+
+							" placa: "+car2.getCarPlate()+" cor :"+car2.getColor());
+				}
+				
+				assertTrue(true);
+				
+			}
+			catch(Exception e){
+				fail("Erro no teste shouldInsertATesteCar "+e.getMessage() + e);
+			}
+				
+		}
+			
 
 }

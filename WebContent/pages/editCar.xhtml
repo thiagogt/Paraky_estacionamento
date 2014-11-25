@@ -28,10 +28,10 @@
 			</div>
 			
 			
-			<div id="table" class="data_table_center_page">
-				<p:dataTable var="car" editable="true" value="#{carBean.carList}" >
+			<div  id="table" class="data_table_center_page">
+				<p:dataTable id="carTable" var="car" editable="true" value="#{carBean.carList}" >
 				
-					<p:ajax event="rowEdit" listener="#{carBean.onRowEdit}" update=":form" />
+					<p:ajax event="rowEdit" listener="#{carBean.onRowEdit}" update=":form:messages" />
 			        <p:column headerText="Marca" sortBy="#{car.carBrand}">
 				        <p:cellEditor>
 				            <f:facet name="output"><h:outputText value="#{car.carBrand}" /></f:facet>
