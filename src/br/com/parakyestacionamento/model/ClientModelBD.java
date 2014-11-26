@@ -83,7 +83,30 @@ public class ClientModelBD implements BDModel{
 
 	@Override
 	public int update(Object data) throws SQLException {
-		// TODO Auto-generated method stub
+		Connection connection = null;
+		try {
+			connection =	ConnectionDBFactory.getDataBaseConnection();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+
+		Client client = (Client)data;
+		PreparedStatement stmt = connection.prepareStatement("update client set name=?, " +
+				"last_name =?,cpf=?,birthday_date=?,tel_1=?,tel_2=?,email=? where id_client = ?");
+		stmt.setString(1, client.getName());
+		stmt.setString(2, client.getLastName());
+		stmt.setString(3, client.getCpf());
+		stmt.setDate(4, new java.sql.Date(client.getBirthdayDate().getTime()));
+		stmt.setString(5, client.getTel_1());
+		stmt.setString(6, client.getTel_2());
+		stmt.setString(7, client.getEmail());
+		stmt.setInt(8, client.getIdClient());
+		stmt.executeUpdate();
+		
+		connection.close();
+
 		return 0;
 	}
 

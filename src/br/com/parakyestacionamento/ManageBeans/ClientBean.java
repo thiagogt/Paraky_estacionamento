@@ -4,16 +4,16 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
-import br.com.parakyestacionamento.dominio.Car;
+import org.primefaces.event.RowEditEvent;
+
 import br.com.parakyestacionamento.dominio.Client;
 import br.com.parakyestacionamento.dominio.ParakyMessage;
-import br.com.parakyestacionamento.model.CarModelBD;
 import br.com.parakyestacionamento.model.ClientModelBD;
 
-@SessionScoped
+@ViewScoped
 @ManagedBean(name="clientBean")
 public class ClientBean {
 
@@ -52,7 +52,30 @@ public class ClientBean {
 		return null;
 	}
 
+	 public void onRowEdit(RowEditEvent event) {
+		 
+		 	ClientModelBD model = new ClientModelBD();
+		 	Client clientEdited =  ((Client) event.getObject());
+		 	String message = verifyIfEditClientIsCorrect(clientEdited);
+		 	if(message!=null)
+		 		ParakyMessage.addErrorMessage(message);
+		 	else{
+			 	try {
+					model.update(clientEdited);
+					ParakyMessage.addMessage("Cliente "+clientEdited.getName()+" "+clientEdited.getLastName()+" editado com sucesso!");
+				} catch (SQLException e) {
+					ParakyMessage.addErrorMessage("Erro ao editar cliente!","Contate o administrador do sistema.");
+					System.out.println("Erro ao editar cliente:"+clientEdited.getName()+" "+clientEdited.getLastName()+" "+e.getMessage());
+					System.out.println(e);			}
+		 	}
+		 	 
+	    }
 	
+	private String verifyIfEditClientIsCorrect(Client clientEdited) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	public List<Client> getClientList(){
 		if(clientList == null){
 			ClientModelBD clientModel = new ClientModelBD();	

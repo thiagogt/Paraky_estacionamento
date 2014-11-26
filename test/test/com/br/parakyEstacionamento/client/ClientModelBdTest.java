@@ -74,7 +74,7 @@ public class ClientModelBdTest {
 			
 		}
 		catch(Exception e){
-			fail("Erro no teste shouldInsertATesteCar "+e.getMessage() + e);
+			fail("Erro no teste shouldInsertAClientWithADifferentCPFEveryTime "+e.getMessage() + e);
 		}
 			
 		}
@@ -88,44 +88,53 @@ public class ClientModelBdTest {
 				
 			}
 			catch(Exception e){
-				fail("Erro no teste shouldverifyThatCarPlateAlreadyExists "+e.getMessage() + e);
+				fail("Erro no teste shouldverifyClientCPFAlreadyExists "+e.getMessage() + e);
 				
 			}
 		    
 	}
-//
-//		@Test
-//		public void shouldUpdateCarId_1() throws  ClassNotFoundException, SQLException {
-//			
-//			try{
-//				CarModelBD newModelBD = new CarModelBD();
-//				Car car = new Car();
-//				car.setIdCar(1);
-//				car.setIdClientCar(1);
-//				car.setYearManufacture(1900);
-//				car.setColor("teste");
-//				car.setModel("teste");
-//		    	
-//				car.setCarPlate("testeDeUpdate");
-//				car.setCarBrand("teste");
-//				
-//				newModelBD.update(car);
-//				
-//				List<Car> carList = newModelBD.selectAll();
-//				
-//				for (Car car2 : carList) {
-//					System.out.println(" Carro id: "+car2.getIdCar()+" carOwner :"+car2.getIdClientCar()+
-//							" placa: "+car2.getCarPlate()+" cor :"+car2.getColor());
-//				}
-//				
-//				assertTrue(true);
-//				
-//			}
-//			catch(Exception e){
-//				fail("Erro no teste shouldInsertATesteCar "+e.getMessage() + e);
-//			}
-//				
-//		}
-//	
+
+		@Test
+		public void shouldUpdateClient_1() throws  ClassNotFoundException, SQLException {
+			
+			try{
+				ClientModelBD model = new ClientModelBD();
+				Client client = new Client();
+				client.setIdClient(2);
+				client.setIdOwnerParkingSpace(0);
+				client.setName("testeUpdate");
+				client.setLastName("testeUPDATE");
+				
+				client.setEmail("testeemailUPDATE");
+				client.setTel_1("teste_tel1UPDATE");
+				client.setTel_2("teste_tel2UPDATE");
+				
+				Calendar cal = Calendar.getInstance();
+		    	cal.getTime();
+		    	client.setBirthdayDate(cal.getTime());
+		    	
+		    	SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+		    	client.setCpf("testeCPF_UPDATE"+sdf.format(cal.getTime()));
+								
+				model.update(client);
+				
+				List<Client> clientList = model.selectAll();
+				
+				System.out.println(" ========= teste de update ========= ");
+				for (Client client2: clientList) {
+					System.out.println(" Client id: "+client2.getIdClient()+" Nome completo:"+client2.getName()+
+							" "+client2.getLastName()+
+							" CPF: "+client2.getCpf());
+				}
+				
+				assertTrue(true);
+				
+			}
+			catch(Exception e){
+				fail("Erro no teste shouldUpdateClient_1 "+e.getMessage() + e);
+			}
+				
+		}
+	
 	
 }
