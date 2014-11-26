@@ -20,6 +20,38 @@ public class ClientBean {
 	
 	private List<Client> clientList;
 	private Client clientSelected;
+	private Client newClient;
+	
+	
+	public void saveNewClient(ActionEvent event){
+		ClientModelBD clientModel = new ClientModelBD();
+		try {
+			String errorMessage = allTheFieldsAreCorrets();
+			if(errorMessage != null)
+				ParakyMessage.addErrorMessage(errorMessage);
+			else{
+				newClient.setIdOwnerParkingSpace(0);
+				clientModel.insert(newClient);
+				ParakyMessage.addMessage("Cadastro realizado com sucesso!");
+			}
+		} catch (SQLException e) {
+			ParakyMessage.addErrorMessage("Erro ao salvar cliente!"," Nao foi possivel inserir dado no banco de dados. Contate o administrador do sistema.");
+			System.out.println("Erro ao inserir novo cliente: "+e.getMessage());
+			System.out.println(e);
+		}
+	}
+	
+	private String allTheFieldsAreCorrets() throws SQLException {
+		ClientModelBD model = new ClientModelBD();
+		
+		
+		if(model.verifyIfClientCPFExists(newClient.getCpf()))
+			return "Esse CPF ja existe cadastrado na base de dados.";
+		
+				
+		return null;
+	}
+
 	
 	public List<Client> getClientList(){
 		if(clientList == null){
@@ -43,6 +75,16 @@ public class ClientBean {
 
 	public void setClientSelected(Client clientSelected) {
 		this.clientSelected = clientSelected;
+	}
+
+	public Client getNewClient() {
+		if(newClient == null)
+			newClient = new Client();
+		return newClient;
+	}
+
+	public void setNewClient(Client newCLient) {
+		this.newClient = newCLient;
 	}
 
 }

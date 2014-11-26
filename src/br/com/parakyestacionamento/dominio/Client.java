@@ -13,9 +13,7 @@ public class Client {
 	private String email ;
 	private int idOwnerParkingSpace;
 	
-	public Client(String newCpf,int newIdTitular){
-		this.cpf = newCpf;
-		this.idOwnerParkingSpace = newIdTitular;
+	public Client(){
 	}
 
 	public int getIdClient() {

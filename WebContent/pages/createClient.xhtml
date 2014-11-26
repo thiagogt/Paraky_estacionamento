@@ -28,8 +28,35 @@
 			</div>
 			
 	
+			<div class="form_body">
+				<h:panelGrid columns="4" style="margin-bottom:10px" cellpadding="5">
+			        
+					<p:outputLabel for="name" value="Nome:" />
+				 	<p:inputText id="name" value="#{clientBean.newClient.name}" required="true" requiredMessage="O cliente deve ter nome" />
+				 	
+				 	<p:outputLabel for="lastName" value="Sobrenome:" />
+				 	<p:inputText id="lastName" value="#{clientBean.newClient.lastName}" />
+				 	
+				 	<p:outputLabel for="cpf" value="CPF:" />
+				 	<p:inputText id="cpf" value="#{clientBean.newClient.cpf}" required="true" requiredMessage="O Cpf eh obrigatorio!" />
+				 	
+					<p:outputLabel for="tel_1" value="Telefone 1:" />
+				 	<p:inputText id="tel_1" value="#{clientBean.newClient.tel_1}"/>
+				 	
+				 	<p:outputLabel for="tel_2" value="Telefone 2:" />
+				 	<p:inputText id="tel_2" value="#{clientBean.newClient.tel_2}"/>
+				 	
+				 	<p:outputLabel for="Email" value="Email:" />
+				 	<p:inputText id="Email" value="#{clientBean.newClient.email}"/>
+					
+					<p:outputLabel for="birthdayDate" value="Data de nascimento:" />
+ 			        <p:calendar id="birthdayDate" value="#{clientBean.newClient.birthdayDate}" mode="inline" />
+				 	
+				</h:panelGrid>
+			</div>
+			
 			<div class="submit_buttons_lower_page">
-			    <p:commandButton value="Submit" icon="ui-icon-check" />
+			    <p:commandButton value="Salvar" icon="ui-icon-check" update="form" ajax="false" actionListener="#{clientBean.saveNewClient}"/>
  			</div>			
 		</h:form>
 	</h:body>
