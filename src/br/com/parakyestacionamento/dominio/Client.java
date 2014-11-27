@@ -1,5 +1,8 @@
 package br.com.parakyestacionamento.dominio;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Client {
@@ -55,6 +58,16 @@ public class Client {
 	public void setBirthdayDate(Date birthdayDate) {
 		this.birthdayDate = birthdayDate;
 	}
+	public String getBirthdayDateAsString() {
+		return birthdayDate.toString();
+	}
+
+	public void setBirthdayDateAsString(String birthdayDateString) throws ParseException {
+		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date newbirthdayDate = formatter.parse(birthdayDateString);
+		this.birthdayDate = newbirthdayDate;
+	}
+
 
 	public String getTel_1() {
 		return tel_1;
