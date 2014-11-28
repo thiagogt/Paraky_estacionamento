@@ -59,7 +59,9 @@ public class Client {
 		this.birthdayDate = birthdayDate;
 	}
 	public String getBirthdayDateAsString() {
-		return birthdayDate.toString();
+		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String birthdayString = formatter.format(birthdayDate);
+		return birthdayString;
 	}
 
 	public void setBirthdayDateAsString(String birthdayDateString) throws ParseException {

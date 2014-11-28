@@ -50,8 +50,8 @@
 			        </p:column>
 			        <p:column headerText="Data de Nascimento" sortBy="#{client.birthdayDate}">
 				        <p:cellEditor>
-				            <f:facet name="output"><h:outputText value="#{client.birthdayDateAsString}" /></f:facet>
-				            <f:facet name="input"><p:inputText  value="#{client.birthdayDateAsString}" /></f:facet>
+				            <f:facet name="output"><h:outputText type="timestamp" value="#{client.birthdayDateAsString}" /></f:facet>
+				            <f:facet name="input"><p:inputText type="timestamp" value="#{client.birthdayDateAsString}" /></f:facet>
 			            </p:cellEditor>
 			        </p:column>
 			        <p:column headerText="Tel 1" sortBy="#{client.tel_1}">
