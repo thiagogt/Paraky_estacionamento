@@ -1,7 +1,7 @@
 CREATE TABLE version_bd ( id INTEGER IDENTITY, version VARCHAR(256));
 
 CREATE TABLE client ( 
-id_client INTEGER IDENTITY, 
+id_client NUMERIC IDENTITY, 
 name VARCHAR(256) not null,
 last_name VARCHAR(256), 
 cpf VARCHAR(256) UNIQUE not null, 
@@ -9,7 +9,7 @@ birthday_date date,
 tel_1 VARCHAR(256),
 tel_2 VARCHAR(256),
 email VARCHAR(256),
-id_owner_parking_space INTEGER);
+id_owner_parking_space NUMERIC);
 
 CREATE TABLE car( 
 id_car INTEGER IDENTITY,

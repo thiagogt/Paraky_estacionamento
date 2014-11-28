@@ -1,4 +1,4 @@
-package br.com.parakyestacionamento.model;
+package br.com.parakyestacionamento.modeloBD;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +11,6 @@ import java.util.List;
 import br.com.parakyestacionamento.dominio.Car;
 import br.com.parakyestacionamento.dominio.MonthlyPayment;
 import br.com.parakyestacionamento.hsqldb.ConnectionDBFactory;
-import br.com.parakyestacionamento.modeloBD.BDModel;
 
 public class CarModelBD implements BDModel{
 

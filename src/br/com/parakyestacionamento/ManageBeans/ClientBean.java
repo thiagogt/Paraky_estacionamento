@@ -11,7 +11,7 @@ import org.primefaces.event.RowEditEvent;
 
 import br.com.parakyestacionamento.dominio.Client;
 import br.com.parakyestacionamento.dominio.ParakyMessage;
-import br.com.parakyestacionamento.model.ClientModelBD;
+import br.com.parakyestacionamento.modeloBD.ClientModelBD;
 
 @ViewScoped
 @ManagedBean(name="clientBean")
@@ -21,7 +21,7 @@ public class ClientBean {
 	private List<Client> clientList;
 	private Client clientSelected;
 	private Client newClient;
-	
+	private List<Client> primaryClientList;
 	
 	public void saveNewClient(ActionEvent event){
 		ClientModelBD clientModel = new ClientModelBD();
@@ -92,6 +92,23 @@ public class ClientBean {
 		this.clientList = clientList;
 	}
 
+	
+	public List<Client> getPrimaryClientList(){
+		if(clientList == null){
+			ClientModelBD clientModel = new ClientModelBD();	
+			try {
+				primaryClientList =  clientModel.selectAllOwners();
+			} catch (SQLException e) {
+				ParakyMessage.addMessage("Nao foi possivel gerar lista de clientes donos de vagas. Contate seu Administrador");
+			}
+		}
+		return primaryClientList;
+	}
+	
+	public void setPrimaryClientList(List<Client> clientList) {
+		this.primaryClientList = clientList;
+	}
+	
 	public Client getClientSelected() {
 		return clientSelected;
 	}

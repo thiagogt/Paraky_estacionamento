@@ -14,8 +14,8 @@ import org.junit.Test;
 
 import br.com.parakyestacionamento.dominio.Car;
 import br.com.parakyestacionamento.dominio.Client;
-import br.com.parakyestacionamento.model.CarModelBD;
-import br.com.parakyestacionamento.model.ClientModelBD;
+import br.com.parakyestacionamento.modeloBD.CarModelBD;
+import br.com.parakyestacionamento.modeloBD.ClientModelBD;
 
 public class ClientModelBdTest {
 

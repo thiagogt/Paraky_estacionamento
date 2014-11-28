@@ -33,10 +33,10 @@
 			        <p:selectOneMenu id="client" value="#{carBean.idClientSelected}">
 			        	<f:selectItem itemLabel="Selecione..." itemValue="0"/>  
 			          
-			        	<f:selectItems   value="#{clientBean.clientList}"  
+			        	<f:selectItems   value="#{clientBean.primaryClientList}"  
                                var="client"  
                                itemValue="#{client.idClient}"  
-                               itemLabel="#{client.name}"/>  
+                               itemLabel="#{client.name} #{client.lastName}"/>  
 			          </p:selectOneMenu>
 			 		
 

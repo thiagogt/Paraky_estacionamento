@@ -1,4 +1,4 @@
-package br.com.parakyestacionamento.model;
+package br.com.parakyestacionamento.modeloBD;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +10,6 @@ import java.util.List;
 import br.com.parakyestacionamento.dominio.Car;
 import br.com.parakyestacionamento.dominio.Client;
 import br.com.parakyestacionamento.hsqldb.ConnectionDBFactory;
-import br.com.parakyestacionamento.modeloBD.BDModel;
 
 public class ClientModelBD implements BDModel{
 
@@ -58,7 +57,10 @@ public class ClientModelBD implements BDModel{
 		stmt.setString(1, client.getName());
 		stmt.setString(2, client.getLastName());
 		stmt.setString(3, client.getCpf());
-		stmt.setDate(4, new java.sql.Date(client.getBirthdayDate().getTime()));
+		if(client.getBirthdayDate()!=null)
+			stmt.setDate(4, new java.sql.Date(client.getBirthdayDate().getTime()));
+		else
+			stmt.setDate(4,null);
 		stmt.setString(5, client.getTel_1());
 		stmt.setString(6, client.getTel_2());
 		stmt.setString(7, client.getEmail());
@@ -123,6 +125,26 @@ public class ClientModelBD implements BDModel{
 		ResultSet rs = null;
 		
 		rs = connection.prepareStatement("select * from client").executeQuery();
+		rs.next();
+		 clientList= resultSetListToObjectList(rs);
+	    
+		connection.close();
+		
+		return clientList;
+	}
+	
+	public List<Client> selectAllOwners() throws SQLException {
+		List<Client> clientList;
+		Connection connection = null;
+		try {
+			connection =	ConnectionDBFactory.getDataBaseConnection();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ResultSet rs = null;
+		
+		rs = connection.prepareStatement("select * from client where id_client = id_owner_parking_space").executeQuery();
 		rs.next();
 		 clientList= resultSetListToObjectList(rs);
 	    

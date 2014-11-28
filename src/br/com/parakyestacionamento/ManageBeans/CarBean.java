@@ -11,7 +11,7 @@ import org.primefaces.event.RowEditEvent;
 
 import br.com.parakyestacionamento.dominio.Car;
 import br.com.parakyestacionamento.dominio.ParakyMessage;
-import br.com.parakyestacionamento.model.CarModelBD;
+import br.com.parakyestacionamento.modeloBD.CarModelBD;
 
 @ViewScoped
 @ManagedBean(name="carBean")

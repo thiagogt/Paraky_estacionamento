@@ -14,7 +14,7 @@ import org.junit.Test;
 import org.primefaces.validate.bean.AssertTrueClientValidationConstraint;
 
 import br.com.parakyestacionamento.dominio.Car;
-import br.com.parakyestacionamento.model.CarModelBD;
+import br.com.parakyestacionamento.modeloBD.CarModelBD;
 
 public class CarModelBDTest {
 
