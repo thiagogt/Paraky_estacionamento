@@ -125,7 +125,6 @@ public class ClientModelBD implements BDModel{
 		ResultSet rs = null;
 		
 		rs = connection.prepareStatement("select * from client").executeQuery();
-		rs.next();
 		 clientList= resultSetListToObjectList(rs);
 	    
 		connection.close();
@@ -145,7 +144,6 @@ public class ClientModelBD implements BDModel{
 		ResultSet rs = null;
 		
 		rs = connection.prepareStatement("select * from client where id_client = id_owner_parking_space").executeQuery();
-		rs.next();
 		 clientList= resultSetListToObjectList(rs);
 	    
 		connection.close();
