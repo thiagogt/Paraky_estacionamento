@@ -26,10 +26,37 @@
 				<spam>Nova Diaria</spam>
 				
 			</div>
+			<div class="form_body">
+				<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+			    
+					<p:outputLabel for="carPlate" value="Placa:" />
+				 	<p:inputText id="carPlate" value="#{dailyBean.newCar.carPlate}" required="true" requiredMessage="Deve ser cadastrada uma placa!" />
+				 				 	
+				 	<p:outputLabel for="year" value="Ano de fabricacao:" />
+				 	<p:inputText id="year" value="#{dailyBean.newCar.yearManufacture}"  validatorMessage="O ano deve ter  ate 8 digitos. Apenas numeros sao aceitos.">
+				 		<f:validateDoubleRange minimum="0" maximum="99999999" />
+				 	</p:inputText>
+				 	
+				 	<p:outputLabel for="color" value="Cor:" />
+				 	<p:inputText id="color" value="#{dailyBean.newCar.color}" />
+				 	
+				 	<p:outputLabel for="model" value="Modelo:" />
+				 	<p:inputText id="model" value="#{dailyBean.newCar.model}" />
+				 	
+				 	<p:outputLabel for="dailyBrand" value="Marca:" />
+				 	<p:inputText id="dailyBrand" value="#{dailyBean.newCar.carBrand}" />
+				 	
+				 	<p:outputLabel for="checkbox" value="Por hora:" />
+				 	<p:inputText type="checkbox" id="checkbox" value="#{dailyBean.isChargedPerHour}" />
+				 	
+				 	<p:outputLabel for="cost" value="Custo por hora:" />
+				 	<p:inputText  id="cost" value="#{dailyBean.newDaily.cost}" />
+				 	
+				</h:panelGrid>
+			</div>
 			
-	
 			<div class="submit_buttons_lower_page">
-			    <p:commandButton value="Submit" icon="ui-icon-check" />
+			    <p:commandButton value="Imprimir" icon="ui-icon-check" update="form" ajax="false" actionListener="#{dailyBean.saveNewDaily}"/>
  			</div>			
 		</h:form>
 	</h:body>
