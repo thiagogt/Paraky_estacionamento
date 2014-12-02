@@ -24,6 +24,7 @@ public class DailyBean {
 	
 	public void saveNewDaily(ActionEvent event){
 		CarModelBD carModel = new CarModelBD();
+		
 		try {
 			String errorMessage = allTheFieldsAreCorrets();
 			if(errorMessage != null)

@@ -64,7 +64,7 @@ public class ClientModelBD implements BDModel{
 		stmt.setString(5, client.getTel_1());
 		stmt.setString(6, client.getTel_2());
 		stmt.setString(7, client.getEmail());
-		if(client.getIdOwnerParkingSpace() == 0)
+		if(isClientOwnerParkingSpace(client))
 			stmt.setObject(8, null);
 		else
 			stmt.setInt(8, client.getIdOwnerParkingSpace());
@@ -75,6 +75,10 @@ public class ClientModelBD implements BDModel{
 		
 		return 0;
 
+	}
+
+	private boolean isClientOwnerParkingSpace(Client client) {
+		return (client.getIdOwnerParkingSpace() == 0);
 	}
 
 	@Override

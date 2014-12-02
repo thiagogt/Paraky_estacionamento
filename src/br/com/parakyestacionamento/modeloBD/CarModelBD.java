@@ -49,7 +49,11 @@ public class CarModelBD implements BDModel{
 		}
 		PreparedStatement stmt = connection.prepareStatement("INSERT INTO car (id_car ,id_client_car," +
 				"year_manufacture ,color,model,car_plate,car_brand) values (car_sequence.nextval,?,?,?,?,?,?)");
-		stmt.setInt(1, car.getIdClientCar());
+		if(isDailyCar(car))
+			stmt.setObject(1, null);
+		else{
+			stmt.setInt(1, car.getIdClientCar());
+		}
 		stmt.setInt(2, car.getYearManufacture());
 		stmt.setString(3, car.getColor());
 		stmt.setString(4, car.getModel());
@@ -61,6 +65,10 @@ public class CarModelBD implements BDModel{
 
 		
 		return 0;
+	}
+
+	private boolean isDailyCar(Car car) {
+		return (car.getIdClientCar()==0);
 	}
 
 	@Override
