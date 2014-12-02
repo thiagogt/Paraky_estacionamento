@@ -31,9 +31,25 @@ public class CarModelBD implements BDModel{
 	}
 
 	@Override
-	public Object select(int id) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public Car select(int id) throws SQLException {
+		Connection connection = null;
+		List<Car> carList =null;
+		Car car = null;
+		try {
+			connection =	ConnectionDBFactory.getDataBaseConnection();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		PreparedStatement stmt = connection.prepareStatement("select * from car where id_car="+id);
+		ResultSet rs = stmt.executeQuery();
+		carList = resultSetListToObjectList(rs);
+		if(carList.size()>0)
+			car = carList.get(0);
+		connection.close();
+		
+		return car;
 	}
 
 	@Override
@@ -60,11 +76,16 @@ public class CarModelBD implements BDModel{
 		stmt.setString(5, car.getCarPlate());
 		stmt.setString(6, car.getCarBrand());
 		stmt.execute();
+		String lastIdInsertedQuery = "SELECT TOP 1 id_car FROM CAR ORDER BY id_car DESC";
+		stmt = connection.prepareStatement(lastIdInsertedQuery);
+		ResultSet rs = stmt.executeQuery();
+		rs.next();
+		int idCar = rs.getInt(1);
 		
 		connection.close();
 
 		
-		return 0;
+		return idCar;
 	}
 
 	private boolean isDailyCar(Car car) {
@@ -137,7 +158,7 @@ public class CarModelBD implements BDModel{
 	}
 
 	
-	public boolean verifyIfCarPlateExists(String plate) throws SQLException{
+	public int verifyIfCarPlateExists(String plate) throws SQLException{
 		
 		Connection connection = null;
 		List<Car> carList =null;
@@ -154,9 +175,11 @@ public class CarModelBD implements BDModel{
 		carList = resultSetListToObjectList(rs);
 		connection.close();
 		
-		if(carList.size()>0)
-			return true;
-		
-		return false;
+		if(carList.size()>0){
+			for (Car car : carList) {
+				return car.getIdCar();
+			}
+		}
+		return 0;
 	}
 }

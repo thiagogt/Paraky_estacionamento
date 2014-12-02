@@ -70,6 +70,7 @@ public class ClientModelBD implements BDModel{
 			stmt.setInt(8, client.getIdOwnerParkingSpace());
 		stmt.execute();
 		
+		
 		connection.close();
 
 		

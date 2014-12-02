@@ -15,6 +15,7 @@ public class DailyPaymentModelBD implements BDModel{
 
 	@Override
 	public DailyPayment bdToObject(ResultSet rs) throws SQLException {
+		
 		java.util.Date newDate = rs.getTimestamp(4);
 		
 		DailyPayment daily = new DailyPayment(newDate);
@@ -29,9 +30,26 @@ public class DailyPaymentModelBD implements BDModel{
 	}
 
 	@Override
-	public Object select(int id) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public DailyPayment select(int id) throws SQLException {
+		
+		DailyPayment daily =null;
+		List<DailyPayment> dailyList;
+		Connection connection = null;
+		try {
+			connection =	ConnectionDBFactory.getDataBaseConnection();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ResultSet rs = null;
+		
+		rs = connection.prepareStatement("select * from daily_payment where id_daily_payment ="+id).executeQuery();
+		dailyList= resultSetListToObjectList(rs);
+	    if(dailyList.size() > 0)
+	    	daily = dailyList.get(0);
+		connection.close();
+		
+		return daily;
 	}
 
 	@Override
@@ -112,7 +130,7 @@ public class DailyPaymentModelBD implements BDModel{
 		ResultSet rs = null;
 		
 		rs = connection.prepareStatement("select * from daily_payment").executeQuery();
-		 dailyList= resultSetListToObjectList(rs);
+		 dailyList = resultSetListToObjectList(rs);
 	    
 		connection.close();
 		

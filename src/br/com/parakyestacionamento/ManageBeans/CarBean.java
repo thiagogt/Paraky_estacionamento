@@ -46,7 +46,7 @@ public class CarBean {
 		
 		if(idClientSelected == 0)
 			return "Escolha um cliente para ser dono desse novo carro.";
-		if(model.verifyIfCarPlateExists(newCar.getCarPlate()))
+		if(model.verifyIfCarPlateExists(newCar.getCarPlate())!=0)
 			return "Essa placa ja existe cadastrada na base de dados.";
 		
 				

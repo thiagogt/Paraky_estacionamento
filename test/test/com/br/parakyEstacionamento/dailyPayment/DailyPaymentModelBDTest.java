@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
+import junit.framework.Assert;
+
 import org.junit.Test;
 
 import br.com.parakyestacionamento.dominio.Client;
@@ -22,6 +24,7 @@ public class DailyPaymentModelBDTest {
 		try{
 			DailyPaymentModelBD  model = new DailyPaymentModelBD();
 			List<DailyPayment> dailyList = model.selectAll();
+			System.out.println("============== SELECT ALL====================");
 			for (DailyPayment daily : dailyList) {
 				System.out.println("Esse eh o id daily : "+daily.getIdDailyPayment()
 						+" o id do carro "+daily.getIdCarCharged()+" custo: "+daily.getCost()
@@ -53,7 +56,7 @@ public class DailyPaymentModelBDTest {
 			model.insert(newdaily);
 			
 			List<DailyPayment> dailyList = model.selectAll();
-			
+			System.out.println("============== INSERT on car 1====================");
 			for (DailyPayment daily : dailyList) {
 				System.out.println("Esse eh o id daily : "+daily.getIdDailyPayment()
 						+" o id do carro "+daily.getIdCarCharged()+" custo: "+daily.getCost()
@@ -93,6 +96,40 @@ public class DailyPaymentModelBDTest {
 			}
 			catch(Exception e){
 				fail("Erro no teste shouldUpdateDaily_1 "+e.getMessage() + e);
+			}
+				
+		}
+		@Test
+		public void shouldFoundThisTicketId_1() throws  ClassNotFoundException, SQLException {
+			
+			try{
+				DailyPaymentModelBD  model = new DailyPaymentModelBD();
+				if(model.select(1) != null)
+					assertTrue(true);
+				
+				else{
+					fail();
+				}
+			}
+			catch(Exception e){
+				fail("Erro no teste shouldFoundThisTicketId_1 "+e.getMessage() + e);
+			}
+				
+		}
+		@Test
+		public void shouldNotFoundThisTicketId_0() throws  ClassNotFoundException, SQLException {
+			
+			try{
+				DailyPaymentModelBD  model = new DailyPaymentModelBD();
+				if(model.select(0) == null)
+					assertTrue(true);
+				
+				else{
+					fail();
+				}
+			}
+			catch(Exception e){
+				fail("Erro no teste shouldNotFoundThisTicketId_0 "+e.getMessage() + e);
 			}
 				
 		}

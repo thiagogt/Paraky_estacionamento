@@ -25,6 +25,7 @@ public class ClientModelBdTest {
 		try{
 			ClientModelBD clientModel = new ClientModelBD();
 			List<Client> clientList = clientModel.selectAll();
+			System.out.println("============== SELECT ALL ====================");
 			for (Client client : clientList) {
 				System.out.println("Esse eh o nome completo: "+client.getName()+" "+client.getLastName()+" data Nascimento: "+client.getBirthdayDate().toString());
 			}
@@ -63,7 +64,7 @@ public class ClientModelBdTest {
 			newModelBD.insert(client);
 			
 			List<Client> clientList = newModelBD.selectAll();
-			
+			System.out.println("============== INSERT CLIENT ====================");
 			for (Client client2 : clientList) {
 				System.out.println(" Client id: "+client2.getIdClient()+" Nome completo:"+client2.getName()+
 						" "+client2.getLastName()+
@@ -120,7 +121,7 @@ public class ClientModelBdTest {
 				
 				List<Client> clientList = model.selectAll();
 				
-				System.out.println(" ========= teste de update ========= ");
+				System.out.println("============== UPDATE CLIENT 1 ====================");
 				for (Client client2: clientList) {
 					System.out.println(" Client id: "+client2.getIdClient()+" Nome completo:"+client2.getName()+
 							" "+client2.getLastName()+

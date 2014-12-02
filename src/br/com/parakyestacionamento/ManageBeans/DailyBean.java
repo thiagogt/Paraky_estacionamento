@@ -1,6 +1,7 @@
 package br.com.parakyestacionamento.ManageBeans;
 
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
@@ -13,6 +14,7 @@ import br.com.parakyestacionamento.dominio.Car;
 import br.com.parakyestacionamento.dominio.DailyPayment;
 import br.com.parakyestacionamento.dominio.ParakyMessage;
 import br.com.parakyestacionamento.modeloBD.CarModelBD;
+import br.com.parakyestacionamento.modeloBD.DailyPaymentModelBD;
 
 @ViewScoped
 @ManagedBean(name="dailyBean")
@@ -20,52 +22,83 @@ public class DailyBean {
 
 	private Car newCar;
 	private DailyPayment newDaily;
-	private boolean isChargedPerHour;
+	private boolean chargedPerHour =false;
+	private int idClosedTicket =0;
 	
 	public void saveNewDaily(ActionEvent event){
 		CarModelBD carModel = new CarModelBD();
+		DailyPaymentModelBD dailyModel = new DailyPaymentModelBD();
 		
 		try {
 			String errorMessage = allTheFieldsAreCorrets();
 			if(errorMessage != null)
 				ParakyMessage.addErrorMessage(errorMessage);
 			else{
-				carModel.insert(newCar);
+				int idCar = thisCarExistAtBD();
+				if(idCar == 0)
+					idCar = carModel.insert(newCar);
+				else
+					ParakyMessage.addMessage("Placa já cadastrada no sistema.");
+				newDaily.setIdCarCharged(idCar);
+				newDaily.setCheckin(Calendar.getInstance().getTime());
+				dailyModel.insert(newDaily);
 				ParakyMessage.addMessage("Cadastro realizado com sucesso!");
 			}
 		} catch (SQLException e) {
-			ParakyMessage.addErrorMessage("Erro ao salvar carro!"," Nao foi possivel inserir dado no banco de dados. Contate o administrador do sistema.");
-			System.out.println("Erro ao inserir novo carro: "+e.getMessage());
+			ParakyMessage.addErrorMessage("Erro ao salvar diária!"," Nao foi possivel inserir dado no banco de dados. Contate o administrador do sistema.");
+			System.out.println("Erro ao inserir novo diaria: "+e.getMessage());
 			System.out.println(e);
 		}
 	}
 	
+	
+	
 	private String allTheFieldsAreCorrets() throws SQLException {
-		CarModelBD model = new CarModelBD();
-		
-		
-		if(model.verifyIfCarPlateExists(newCar.getCarPlate()))
-			return "Essa placa ja existe cadastrada na base de dados.";
-		
-				
 		return null;
 	}
 
+	private int thisCarExistAtBD() throws SQLException{
+		CarModelBD model = new CarModelBD();
+		
+		
+		return model.verifyIfCarPlateExists(newCar.getCarPlate());
+			
+	}
+	public void searchForTicket(ActionEvent event){
+		try {
+			DailyPayment ticket = thisTicketExist(idClosedTicket); 
+			if(ticket == null)
+				ParakyMessage.addErrorMessage("Ticket inexistente!"," Número de indentificação "+ idClosedTicket+" inexistente na base.");
+			else{
+				newDaily = ticket; 
+				newCar = searchForTicketCar();
+			}
+		} catch (SQLException e) {
+			ParakyMessage.addErrorMessage("Erro ao buscar ticket!"," Nao foi possivel inserir dado no banco de dados. Contate o administrador do sistema.");
+			System.out.println("Erro ao inserir novo diaria: "+e.getMessage());
+			System.out.println(e);
+		}
+	}
 	
-	 public void onRowEdit(RowEditEvent event) {
-		 
-		 	CarModelBD model = new CarModelBD();
-		 	Car carEdited =  ((Car) event.getObject());
-		 	try {
-				model.update(carEdited);
-				ParakyMessage.addMessage(" "+carEdited.getCarBrand()+" "+carEdited.getModel()+" editado com sucesso!");
-			} catch (SQLException e) {
-				ParakyMessage.addErrorMessage("Erro ao editar carro!","Contate o administrador do sistema.");
-				System.out.println("Erro ao inserir novo carro: "+e.getMessage());
-				System.out.println(e);			}
-		 	 
-	    }
-	
+	private Car searchForTicketCar() throws SQLException {
+		CarModelBD model = new CarModelBD();
+		Car car = new Car();
+		
+		car = model.select(newDaily.getIdCarCharged());
+		return car;
+	}
+
+
+
+	private DailyPayment thisTicketExist(int idClosedTicket) throws SQLException {
+		DailyPaymentModelBD model= new DailyPaymentModelBD();
+		DailyPayment daily = model.select(idClosedTicket);
+		
+		return daily;
+	}
+
+
+
 	public Car getNewCar() {
 		if(newCar == null)
 			newCar = new Car();
@@ -84,11 +117,23 @@ public class DailyBean {
 	}
 
 	public boolean isChargedPerHour() {
-		return isChargedPerHour;
+		return chargedPerHour;
 	}
 
 	public void setChargedPerHour(boolean isChargedPerHour) {
-		this.isChargedPerHour = isChargedPerHour;
+		this.chargedPerHour = isChargedPerHour;
+	}
+
+
+
+	public int getIdClosedTicket() {
+		return idClosedTicket;
+	}
+
+
+
+	public void setIdClosedTicket(int idClosedTicket) {
+		this.idClosedTicket = idClosedTicket;
 	}
 	
 	

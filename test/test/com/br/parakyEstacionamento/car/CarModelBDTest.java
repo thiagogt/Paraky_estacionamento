@@ -1,8 +1,6 @@
 package test.com.br.parakyEstacionamento.car;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -25,7 +23,7 @@ public class CarModelBDTest {
 		try{
 			CarModelBD newModelBD = new CarModelBD();
 			List<Car> carList = newModelBD.selectAll();
-			
+			System.out.println("============== SELECT ALL ====================");
 			for (Car car2 : carList) {
 				System.out.println(" Carro id: "+car2.getIdCar()+" carOwner :"+car2.getIdClientCar()+
 						" placa: "+car2.getCarPlate()+" cor :"+car2.getColor());
@@ -61,8 +59,9 @@ public class CarModelBDTest {
 			car.setCarPlate("teste"+sdf.format(cal.getTime()));
 			car.setCarBrand("teste");
 			
-			newModelBD.insert(car);
-			
+			int idCar = newModelBD.insert(car);
+			System.out.println("============== INSERT WITH DIFFERENT PLATE====================");
+			System.out.println("Esse foi o id inserido: "+idCar);
 			List<Car> carList = newModelBD.selectAll();
 			
 			for (Car car2 : carList) {
@@ -112,7 +111,7 @@ public class CarModelBDTest {
 				newModelBD.update(car);
 				
 				List<Car> carList = newModelBD.selectAll();
-				
+				System.out.println("============== UPDATE CAR 1====================");
 				for (Car car2 : carList) {
 					System.out.println(" Carro id: "+car2.getIdCar()+" carOwner :"+car2.getIdClientCar()+
 							" placa: "+car2.getCarPlate()+" cor :"+car2.getColor());
