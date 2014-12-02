@@ -143,7 +143,7 @@ public class ClientModelBD implements BDModel{
 		}
 		ResultSet rs = null;
 		
-		rs = connection.prepareStatement("select * from client where id_client = id_owner_parking_space").executeQuery();
+		rs = connection.prepareStatement("select * from client where id_owner_parking_space is null").executeQuery();
 		 clientList= resultSetListToObjectList(rs);
 	    
 		connection.close();
@@ -185,6 +185,45 @@ public class ClientModelBD implements BDModel{
 		
 		return false;
 
+	}
+
+	public List<Client> selectAllParent() throws SQLException{
+		List<Client> clientList;
+		Connection connection = null;
+		try {
+			connection =	ConnectionDBFactory.getDataBaseConnection();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ResultSet rs = null;
+		
+		rs = connection.prepareStatement("select * from client where id_owner_parking_space is not null").executeQuery();
+		 clientList= resultSetListToObjectList(rs);
+	    
+		connection.close();
+		
+		return clientList;
+	}
+
+	public List<Client> selectAllParentFromThisClient(
+			int idClientSelectedForFilter) throws SQLException {
+		List<Client> clientList;
+		Connection connection = null;
+		try {
+			connection =	ConnectionDBFactory.getDataBaseConnection();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ResultSet rs = null;
+		
+		rs = connection.prepareStatement("select * from client where id_owner_parking_space="+idClientSelectedForFilter).executeQuery();
+		 clientList= resultSetListToObjectList(rs);
+	    
+		connection.close();
+		
+		return clientList;
 	}
 
 }

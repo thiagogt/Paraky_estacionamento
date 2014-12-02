@@ -60,7 +60,9 @@ public class Client {
 	}
 	public String getBirthdayDateAsString() {
 		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String birthdayDateString = formatter.format(birthdayDate);
+		String birthdayDateString = "0000-00-00 00:00:00";
+		if(birthdayDate != null)
+			birthdayDateString = formatter.format(birthdayDate);
 		return birthdayDateString;
 	}
 

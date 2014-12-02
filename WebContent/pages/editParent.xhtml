@@ -12,7 +12,7 @@
 			
 	</h:head>
 	<h:body>
-		<h:form>
+		<h:form id="form">
 			<p:growl id="messages"/>
 			
 			<div class="header_paraky">
@@ -26,11 +26,75 @@
 				<spam>Editar familiar</spam>
 				
 			</div>
+			<div class="description_filter">
+				<spam>Filtrar por cliente responsavel : </spam>
+			</div>
+			<div class="menu_filter">
+				
+			        <p:selectOneMenu id="client" value="#{parentBean.idClientSelectedForFilter}">
+			        	<f:selectItem itemLabel="Selecione..." itemValue="0"/>  
+			          
+			        	<f:selectItems   value="#{clientBean.primaryClientList}"  
+                               var="client"  
+                               itemValue="#{client.idClient}"  
+                               itemLabel="#{client.name} #{client.lastName}"/>  
+		          	</p:selectOneMenu>
+		          	
+		          	 <p:commandButton value="Filtrar" icon="ui-icon-check" update="form" ajax="false" actionListener="#{parentBean.filterParentList}"/>
+			</div>
 			
-	
-			<div class="submit_buttons_lower_page">
-			    <p:commandButton value="Submit" icon="ui-icon-check" />
- 			</div>			
+			<div  id="table" class="data_table_center_page">
+				<p:dataTable id="parentTable" var="parent" editable="true" value="#{parentBean.parentList}" >
+				
+					<p:ajax event="rowEdit" listener="#{parentBean.onRowEdit}" update=":form:messages" />
+			        <p:column headerText="Nome" sortBy="#{parent.name}">
+				        <p:cellEditor>
+				            <f:facet name="output"><h:outputText value="#{parent.name}" /></f:facet>
+				            <f:facet name="input"><p:inputText  value="#{parent.name}" /></f:facet>
+			            </p:cellEditor>
+			        </p:column>
+			        <p:column headerText="Sobrenome" sortBy="#{parent.lastName}">
+				        <p:cellEditor>
+				            <f:facet name="output"><h:outputText value="#{parent.lastName}" /></f:facet>
+				            <f:facet name="input"><p:inputText  value="#{parent.lastName}" /></f:facet>
+			            </p:cellEditor>
+			        </p:column>
+			        <p:column headerText="CPF" sortBy="#{parent.cpf}">
+				        <p:cellEditor>
+				            <f:facet name="output"><h:outputText value="#{parent.cpf}" /></f:facet>
+				            <f:facet name="input"><p:inputText  value="#{parent.cpf}" /></f:facet>
+			            </p:cellEditor>
+			        </p:column>
+			        <p:column headerText="Data de Nascimento" sortBy="#{parent.birthdayDate}">
+				        <p:cellEditor>
+				            <f:facet name="output"><h:outputText  value="#{parent.birthdayDateAsString}" /></f:facet>
+				            <f:facet name="input"><p:inputText  value="#{parent.birthdayDateAsString}" /></f:facet>
+			            </p:cellEditor>
+			        </p:column>
+			        <p:column headerText="Tel 1" sortBy="#{parent.tel_1}">
+				        <p:cellEditor>
+				            <f:facet name="output"><h:outputText value="#{parent.tel_1}" /></f:facet>
+				            <f:facet name="input"><p:inputText  value="#{parent.tel_1}" /></f:facet>
+			            </p:cellEditor>
+			        </p:column>
+			        <p:column headerText="Tel 2" sortBy="#{parent.tel_2}">
+				        <p:cellEditor>
+				            <f:facet name="output"><h:outputText value="#{parent.tel_2}" /></f:facet>
+				            <f:facet name="input"><p:inputText  value="#{parent.tel_2}" /></f:facet>
+			            </p:cellEditor>
+			        </p:column>
+			        <p:column headerText="E-mail" sortBy="#{parent.email}">
+				        <p:cellEditor>
+				            <f:facet name="output"><h:outputText value="#{parent.email}" /></f:facet>
+				            <f:facet name="input"><p:inputText  value="#{parent.email}" /></f:facet>
+			            </p:cellEditor>
+			        </p:column>
+			        <p:column style="width:32px">
+						<p:rowEditor />
+					</p:column>		        
+			    </p:dataTable>
+			</div>
+				
 		</h:form>
 	</h:body>
 </html>

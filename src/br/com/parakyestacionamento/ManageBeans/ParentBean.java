@@ -1,6 +1,7 @@
 package br.com.parakyestacionamento.ManageBeans;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -19,7 +20,22 @@ public class ParentBean {
 	private Client clientSelected;
 	private Client newParent;
 	private int idClientSelected=0;
+	private List<Client> parentList;
+	private int idClientSelectedForFilter;
 	
+	public void filterParentList(ActionEvent event){
+		if(idClientSelectedForFilter != 0){
+			ClientModelBD parentModel = new ClientModelBD();	
+			try {
+				parentList =  parentModel.selectAllParentFromThisClient(idClientSelectedForFilter);
+			} catch (SQLException e) {
+				ParakyMessage.addMessage("Nao foi possivel gerar lista de familiares filtrados. Contate seu Administrador");
+			}
+		}
+		else{
+			parentList =null;
+		}
+	}
 	
 	public void saveNewParent(ActionEvent event){
 		ClientModelBD parentModel = new ClientModelBD();
@@ -101,6 +117,30 @@ public class ParentBean {
 
 	public void setIdClientSelected(int idClientSelected) {
 		this.idClientSelected = idClientSelected;
+	}
+
+	public List<Client> getParentList() {
+		if(parentList == null){
+			ClientModelBD parentModel = new ClientModelBD();	
+			try {
+				parentList =  parentModel.selectAllParent();
+			} catch (SQLException e) {
+				ParakyMessage.addMessage("Nao foi possivel gerar lista de familiares. Contate seu Administrador");
+			}
+		}
+		return parentList;
+	}
+
+	public void setParentList(List<Client> parentList) {
+		this.parentList = parentList;
+	}
+
+	public int getIdClientSelectedForFilter() {
+		return idClientSelectedForFilter;
+	}
+
+	public void setIdClientSelectedForFilter(int idClientSelectedForFilter) {
+		this.idClientSelectedForFilter = idClientSelectedForFilter;
 	}
 
 }

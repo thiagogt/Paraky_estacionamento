@@ -26,8 +26,9 @@
 				<spam>Editar cliente</spam>
 				
 			</div>
+			
 			<div  id="table" class="data_table_center_page">
-				<p:dataTable id="clientTable" var="client" editable="true" value="#{clientBean.clientList}" >
+				<p:dataTable id="clientTable" var="client" editable="true" value="#{clientBean.primaryClientList}" >
 				
 					<p:ajax event="rowEdit" listener="#{clientBean.onRowEdit}" update=":form:messages" />
 			        <p:column headerText="Nome" sortBy="#{client.name}">
@@ -50,8 +51,8 @@
 			        </p:column>
 			        <p:column headerText="Data de Nascimento" sortBy="#{client.birthdayDate}">
 				        <p:cellEditor>
-				            <f:facet name="output"><h:outputText type="timestamp" value="#{client.birthdayDateAsString}" /></f:facet>
-				            <f:facet name="input"><p:inputText type="timestamp" value="#{client.birthdayDateAsString}" /></f:facet>
+				            <f:facet name="output"><h:outputText  value="#{client.birthdayDateAsString}" /></f:facet>
+				            <f:facet name="input"><p:inputText  value="#{client.birthdayDateAsString}" /></f:facet>
 			            </p:cellEditor>
 			        </p:column>
 			        <p:column headerText="Tel 1" sortBy="#{client.tel_1}">

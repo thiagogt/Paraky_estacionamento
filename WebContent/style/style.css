@@ -50,6 +50,31 @@
 	font-size: 2em;
 	position: relative;
 }
+/*======================= FILTER MENU ===============================*/
+.description_filter{
+	position: relative;
+	top : 40px;
+	display: inline;
+	
+}
+
+.description_filter spam{
+	font-family:monospace;
+	font-size: 1.3em;
+	position: relative;
+}
+
+.menu_filter{
+	position: relative;
+	top : 40px;
+	left: 2em;
+	display: inline;
+}
+
+.menu_filter button{
+	left: 2em;
+	display: inline;
+}
 /*======================== SUBMIT BUTTONS =============================*/
 
 .submit_buttons_lower_page{
@@ -66,7 +91,7 @@
 
 .data_table_center_page{
 	position: relative;
-	top : 10px;
+	top : 30px;
 	font-size: 0.8em;
 	
 }
