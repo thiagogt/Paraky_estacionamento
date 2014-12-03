@@ -51,7 +51,9 @@ public class DailyBean {
 		}
 	}
 	
-	
+	public void closeTicket(ActionEvent event){
+		
+	}
 	
 	private String allTheFieldsAreCorrets() throws SQLException {
 		return null;

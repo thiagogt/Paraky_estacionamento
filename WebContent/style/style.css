@@ -105,6 +105,11 @@ font-family: Monospace;
 font-size: 1.2em;
 
 }
+
+.ticketTable{
+	position:relative;
+	left:-6.5em;
+}
 /*========================== FORM_BODY ============================*/
 
 .form_body{

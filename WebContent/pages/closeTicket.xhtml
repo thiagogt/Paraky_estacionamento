@@ -26,35 +26,18 @@
 				<spam>Fechar Diaria</spam>
 				
 			</div>
-			<div class="description_filter">
-				<spam>Filtrar por cliente responsavel : </spam>
-			</div>
-			<div class="menu_filter">
-				
-			        <p:selectOneMenu id="client" value="#{parentBean.idClientSelectedForFilter}">
-			        	<f:selectItem itemLabel="Selecione..." itemValue="0"/>  
-			          
-			        	<f:selectItems   value="#{clientBean.primaryClientList}"  
-                               var="client"  
-                               itemValue="#{client.idClient}"  
-                               itemLabel="#{client.name} #{client.lastName}"/>  
-		          	</p:selectOneMenu>
-		          	
-		          	 <p:commandButton value="Filtrar" icon="ui-icon-check" update="form" ajax="false" actionListener="#{parentBean.filterParentList}"/>
-			</div>
+			
 			<div class="form_body">
 			
 			
-				<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+				<h:panelGrid columns="3" style="margin-bottom:10px" cellpadding="5">
 			    
 					<p:outputLabel for="idDaily" value="Número de identificação do Ticket :" />
 				 	<p:inputText id="idDaily" value="#{dailyBean.idClosedTicket}" required="true" requiredMessage="O número do ticket é necessário para o fechamento!" />
-				 				 	
+				   	 <p:commandButton value="Buscar" icon="ui-icon-check" update="dailyInfo" ajax="false" actionListener="#{dailyBean.searchForTicket}"/>
 				</h:panelGrid>
-				<div class="submit_buttons_lower_page">
-			   	 <p:commandButton value="Buscar" icon="ui-icon-check" update="dailyInfo" ajax="false" actionListener="#{dailyBean.searchForTicket}"/>
- 				</div>
- 				<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" id="dailyInfo">
+				
+ 				<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" align="center"  class="ticketTable" id="dailyInfo">
 			    
 					<p:outputLabel for="carPlate" value="Placa:" />
 				 	<p:outputLabel id="carPlate" value="#{dailyBean.newCar.carPlate}" required="true" requiredMessage="Deve ser cadastrada uma placa!" />
@@ -80,7 +63,7 @@
 			</div>
 			
 			<div class="submit_buttons_lower_page">
-		   	 	<p:commandButton value="Imprimir" icon="ui-icon-check" update="form" ajax="false" actionListener="#{dailyBean.closeTicket}"/>
+		   	 	<p:commandButton value="Fechar ticket" icon="ui-icon-check" update="form" ajax="false" actionListener="#{dailyBean.closeTicket}"/>
 			</div>		
 		</h:form>
 	</h:body>
