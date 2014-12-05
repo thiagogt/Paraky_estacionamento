@@ -22,9 +22,9 @@ public class DailyPaymentModelBD implements BDModel{
 		daily.setIdDailyPayment(rs.getInt(1));
 		daily.setIdCarCharged(rs.getInt(2));
 		daily.setCost(rs.getDouble(3));
-		
 		java.util.Date newDateCheckout = rs.getTimestamp(5);
 		daily.setCheckout(newDateCheckout);
+		daily.setChargedPerHour(rs.getBoolean(6));
 		
 		return daily;
 	}
@@ -64,7 +64,7 @@ public class DailyPaymentModelBD implements BDModel{
 			e.printStackTrace();
 		}
 		PreparedStatement stmt = connection.prepareStatement("INSERT INTO daily_payment (id_daily_payment," +
-				"id_car_charged,cost,checkin,checkout ) values (daily_sequence.nextval,?,?,?,?)");
+				"id_car_charged,cost,checkin,checkout,is_charged_per_hour ) values (daily_sequence.nextval,?,?,?,?,?)");
 		stmt.setInt(1, daily.getIdCarCharged());
 		stmt.setDouble(2, daily.getCost());
 		if(daily.getCheckin()!=null)
@@ -76,6 +76,7 @@ public class DailyPaymentModelBD implements BDModel{
 		else
 			stmt.setDate(4,null);
 
+		stmt.setBoolean(5, daily.isChargedPerHour());
 		stmt.execute();
 		
 		connection.close();
@@ -106,9 +107,10 @@ public class DailyPaymentModelBD implements BDModel{
 	
 
 		DailyPayment dailyPayment = (DailyPayment)data;
-		PreparedStatement stmt = connection.prepareStatement("update daily_payment set checkout=? where id_daily_payment = ?");
+		PreparedStatement stmt = connection.prepareStatement("update daily_payment set checkout=?, cost=? where id_daily_payment = ?");
 		stmt.setDate(1, new java.sql.Date(dailyPayment.getCheckout().getTime()));
-		stmt.setInt(2, dailyPayment.getIdDailyPayment());
+		stmt.setDouble(2, dailyPayment.getCost());
+		stmt.setInt(3, dailyPayment.getIdDailyPayment());
 		stmt.executeUpdate();
 		
 		connection.close();

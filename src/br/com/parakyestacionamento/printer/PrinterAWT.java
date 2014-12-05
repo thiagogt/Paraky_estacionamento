@@ -7,14 +7,14 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import com.sun.org.apache.xerces.internal.impl.dv.xs.DayDV;
-
 import br.com.parakyestacionamento.dominio.Car;
 import br.com.parakyestacionamento.dominio.DailyPayment;
+import br.com.parakyestacionamento.modeloBD.DailyPaymentModelBD;
 import br.com.parakyestacionamento.properties.AppProperties;
 
 public class PrinterAWT implements Printable{
@@ -26,32 +26,33 @@ public class PrinterAWT implements Printable{
 	@Override
 	public int print(Graphics graphics, PageFormat pageFormat, int page)
 			throws PrinterException {
-		 // We have only one page, and 'page'
-	    // is zero-based
-	    if (page > 0) {
+		 
+	    if (pageIsZeroBased(page)) {
 	         return NO_SUCH_PAGE;
 	    }
 
-	    // User (0,0) is typically outside the
-	    // imageable area, so we must translate
-	    // by the X and Y values in the PageFormat
-	    // to avoid clipping.
 	    Graphics2D g2d = (Graphics2D)graphics;
 	    g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
 	    g2d.setFont(new Font("Bookman", Font.PLAIN, 10));
 	    // Now we perform our rendering
 	    if(hasToGenerateCheckinTicket)
 	    	createLayoutTicketForCheckin(graphics);
-	    else
+	    else{
 	    	createLayoutForCheckout(graphics);
-	    
-	    // tell the caller that this page is part
-	    // of the printed document
+	    	
+	    }
+	   
 	    return PAGE_EXISTS;
 	}
 
 	
-	private void createLayoutForCheckout(Graphics graphics) {
+	private boolean pageIsZeroBased(int page) {
+		
+		return page > 0;
+	}
+
+
+	private void createLayoutForCheckout(Graphics graphics)  {
 		
 		Date actualDate = Calendar.getInstance().getTime();
 		
@@ -78,15 +79,34 @@ public class PrinterAWT implements Printable{
 	    
 	    graphics.drawString("Tempo de estadia   : "+diffHours+" hrs. "+diffMinutes+" min. "+diffSeconds+" seg.", 0, 200);
 	    graphics.drawString("-------------------------------------------------------------", 0, 220);
-		if(daily.getCost() != 0 )
+	    
+	    Double cost = 0.0;
+		if(daily.isChargedPerHour() ){
 			graphics.drawString("Custo por hora : R$ "+daily.getCost(), 70, 240);
+			cost = daily.getCost()*diffHours;
+		}
 		else{
-	   		String completeDailyCost = getCostPerDay();
-	   		graphics.drawString("Custo da diária : R$ "+completeDailyCost, 70, 240);
+	   		cost = Double.parseDouble(getCostPerDay());
+	   		
+	   		graphics.drawString("Custo da diária : R$ "+cost, 70, 240);
 	   	}
-	    graphics.drawString("TOTAL : R$ "+daily.getCost()*diffHours, 104, 260);
+		graphics.setFont(new Font("Bookman", Font.BOLD, 10));
+		
+	    graphics.drawString("TOTAL : R$ "+cost, 104, 260);
+	    graphics.setFont(new Font("Bookman", Font.PLAIN, 10));
 	    graphics.drawString("Este ticket não serve ", 48, 300);
 	    graphics.drawString("como comprovante fiscal.", 43, 310);
+
+	    daily.setCheckout(actualDate);
+	    daily.setCost(cost);
+    	DailyPaymentModelBD model =new DailyPaymentModelBD();
+    	try {
+			model.updateCheckout(daily);
+		} catch (SQLException e) {
+			System.out.println("Erro ao atualizar a data de saida do ticket: "+e.getMessage());
+			System.out.println(e);
+		}
+	    
 	}
 
 
@@ -105,9 +125,7 @@ public class PrinterAWT implements Printable{
 	    graphics.drawString("Placa      : "+car.getCarPlate(), 0, 120);
 	    graphics.drawString("Marca     : "+car.getCarBrand(), 0, 130);
 	    graphics.drawString("Modelo   : "+car.getModel(), 0, 140);
-	    SimpleDateFormat onlyHour  =  new SimpleDateFormat("HH:mm:ss");
-	    String checkin = onlyHour.format(daily.getCheckin());
-	   	if(daily.getCost() != 0 )    
+	   	if(daily.isChargedPerHour() )    
 	   		graphics.drawString("Custo por hora : R$ "+daily.getCost(), 0, 170);
 	   	else{
 	   		String completeDailyCost = getCostPerDay();
@@ -136,6 +154,7 @@ public class PrinterAWT implements Printable{
          boolean ok = job.printDialog();
          if (ok) {
         	 job.print();
+        	 
          }
 	}
 	
@@ -148,7 +167,8 @@ public class PrinterAWT implements Printable{
 		 hasToGenerateCheckinTicket = true;		 
         boolean ok = job.printDialog();
         if (ok) {
-       	 job.print();
+       	 	job.print();
+        	
         }
 	}
 

@@ -6,7 +6,7 @@ INSERT INTO client (id_client,name,last_name,cpf,birthday_date,tel_1 ,tel_2 ,ema
 
 INSERT INTO car (id_car ,id_client_car,year_manufacture ,color,model,car_plate,car_brand) values (1,1,2000,'green','pegoult 1.8','LCY1884','Pegoult');
 
-INSERT INTO daily_payment(id_daily_payment,id_car_charged,cost,checkin,checkout) values (1,1,4.50,'2008-08-22 03:00:00.000000000','2008-08-22 05:30:20.000000000');
+INSERT INTO daily_payment(id_daily_payment,id_car_charged,cost,checkin,checkout,is_charged_per_hour) values (1,1,4.50,'2008-08-22 03:00:00.000000000','2008-08-22 05:30:20.000000000',false);
 
 INSERT INTO parking_space(id_parking_space ,id_client_owner,pay_day,type_parking_space,contract_date,parking_space_cost) values (1,1,13,'carro','2008-08-22 05:30:20.000000000',200.00);
 

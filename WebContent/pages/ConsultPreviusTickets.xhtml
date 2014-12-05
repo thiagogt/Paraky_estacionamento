@@ -28,9 +28,44 @@
 			</div>
 			
 	
-			<div class="submit_buttons_lower_page">
-			    <p:commandButton value="Submit" icon="ui-icon-check" />
- 			</div>			
+			<div  id="table" class="data_table_center_page">
+				<p:dataTable id="ticketTable" var="ticket"  value="#{dailyBean.ticketList}" >
+				
+			        <p:column headerText="Número ticket" sortBy="#{ticket.idDailyParking}">
+				            <h:outputText value="#{ticket.idDailyParking}" />
+			        </p:column>
+			        <p:column headerText="Data de entrada" sortBy="#{ticket.checkin}">
+				         
+				             <h:outputText value="#{ticket.checkin}" /> 
+			             
+			        </p:column>
+			        <p:column headerText="Data de saída" sortBy="#{ticket.checkout}">
+				         
+				             <h:outputText value="#{ticket.checkout}" /> 
+			             
+			        </p:column>
+			        <p:column headerText="Placa do carro" sortBy="#{ticket.carPlate}">
+				         
+				             <h:outputText  value="#{ticket.carPlate}" /> 
+			             
+			        </p:column>
+			        <p:column headerText="Marca" sortBy="#{ticket.carBrand}">
+				         
+				             <h:outputText value="#{ticket.carBrand}" /> 
+			             
+			        </p:column>
+			        <p:column headerText="Modelo" sortBy="#{ticket.model}">
+				         
+				             <h:outputText value="#{ticket.model}" /> 
+			             
+			        </p:column>
+			        <p:column headerText="Custo" sortBy="#{ticket.cost}">
+				         
+				             <h:outputText value="#{ticket.cost}" /> 
+			             
+			        </p:column>
+			    </p:dataTable>
+			</div>		
 		</h:form>
 	</h:body>
 </html>

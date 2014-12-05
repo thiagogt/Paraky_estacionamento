@@ -81,6 +81,7 @@ public class DailyPaymentModelBDTest {
 				DailyPayment newdaily = new DailyPayment(cal.getTime());
 				newdaily.setIdDailyPayment(1);
 				newdaily.setCheckout(cal.getTime());
+				newdaily.setCost(40.00);
 				
 				model.updateCheckout(newdaily);
 				

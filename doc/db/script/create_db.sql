@@ -25,7 +25,8 @@ id_daily_payment INTEGER IDENTITY,
 id_car_charged INTEGER NOT NULL,
 cost double,
 checkin TIMESTAMP,
-checkout TIMESTAMP);
+checkout TIMESTAMP,
+is_charged_per_hour boolean);
 
 CREATE TABLE parking_space( 
 id_parking_space INTEGER IDENTITY,

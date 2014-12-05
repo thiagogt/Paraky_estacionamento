@@ -12,7 +12,7 @@
 			
 	</h:head>
 	<h:body>
-		<h:form>
+		<h:form id="form">
 			<p:growl id="messages"/>
 			
 			<div class="header_paraky">
@@ -47,11 +47,8 @@
 				 	<p:inputText id="dailyBrand" value="#{dailyBean.newCar.carBrand}" />
 				 	
 				 	<p:outputLabel for="checkbox" value="Por hora:" />
-				 	<p:inputText type="checkbox" id="checkbox" value="#{dailyBean.chargedPerHour}" />
-				 	
-				 	<p:outputLabel for="cost" value="Custo por hora:" />
-				 	<p:inputText  id="cost" value="#{dailyBean.newDaily.cost}" />
-				 	
+				 	<p:selectBooleanCheckbox  id="checkbox" value="#{dailyBean.newDaily.chargedPerHour}" />
+				 	 	
 				</h:panelGrid>
 			</div>
 			
