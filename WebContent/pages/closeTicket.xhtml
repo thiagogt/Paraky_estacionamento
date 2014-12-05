@@ -55,13 +55,13 @@
 				 	<p:outputLabel id="dailyBrand" value="#{dailyBean.newCar.carBrand}" />
 				 	
 				 	<p:outputLabel for="checkbox" value="Por hora:" />
-				 	<p:outputLabel type="checkbox" id="checkbox" value="#{dailyBean.newDaily.chargedPerHour}" />
+				 	<p:outputLabel id="checkbox" value="#{dailyBean.newDaily.chargedPerHourOutput}" />
 				 	
-				 	<p:outputLabel for="costHour" value="Custo por hora:" hidden="#{dailyBean.newDaily.chargedPerHour}"/>
-				 	<p:outputLabel  id="costHour" value="#{dailyBean.newDaily.cost}" />	
+				 	<p:outputLabel for="costHour" value="Custo por hora:" rendered="#{dailyBean.newDaily.chargedPerHour}"/>
+				 	<p:outputLabel  id="costHour" value="R$ #{dailyBean.costPerHour}"  rendered="#{dailyBean.newDaily.chargedPerHour}"/>	
 				 	
-				 	<p:outputLabel for="costDaily" value="Custo da diária:" hidden="!#{dailyBean.newDaily.chargedPerHour}"/>
-				 	<p:outputLabel  id="costDaily" value="#{dailyBean.newDaily.cost}" />		 	
+				 	<p:outputLabel for="costDaily" value="Custo da diária:" rendered="#{!dailyBean.newDaily.chargedPerHour}"/>
+				 	<p:outputLabel  id="costDaily" value="R$ #{dailyBean.costPerDay}" rendered="#{!dailyBean.newDaily.chargedPerHour}"/>		 	
 				</h:panelGrid>
 			</div>
 			

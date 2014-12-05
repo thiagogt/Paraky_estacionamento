@@ -9,16 +9,22 @@ public class DailyPayment {
 	private double cost ;
 	private Date checkin ;
 	private Date checkout ;
-	private boolean isChargedPerHour;
+	private boolean chargedPerHour;
 	
 	
 	
 	public boolean isChargedPerHour() {
-		return isChargedPerHour;
+		return chargedPerHour;
 	}
 
+	public String getChargedPerHourOutput() {
+		if(chargedPerHour)
+			return "Sim";
+		return "Nao";
+	}
+	
 	public void setChargedPerHour(boolean isChargedPerHour) {
-		this.isChargedPerHour = isChargedPerHour;
+		this.chargedPerHour = isChargedPerHour;
 	}
 
 	public DailyPayment(Date newCheckin){

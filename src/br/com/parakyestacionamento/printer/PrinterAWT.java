@@ -82,13 +82,15 @@ public class PrinterAWT implements Printable{
 	    
 	    Double cost = 0.0;
 		if(daily.isChargedPerHour() ){
-			graphics.drawString("Custo por hora : R$ "+daily.getCost(), 70, 240);
-			cost = daily.getCost()*diffHours;
+			cost = Double.parseDouble(getCostPerHour());
+			graphics.drawString("Custo por hora : R$ "+cost, 70, 240);
+			cost = cost*diffHours;
+			
 		}
 		else{
 	   		cost = Double.parseDouble(getCostPerDay());
-	   		
 	   		graphics.drawString("Custo da diária : R$ "+cost, 70, 240);
+	   		
 	   	}
 		graphics.setFont(new Font("Bookman", Font.BOLD, 10));
 		
@@ -107,6 +109,11 @@ public class PrinterAWT implements Printable{
 			System.out.println(e);
 		}
 	    
+	}
+
+
+	private String getCostPerHour() {
+		return AppProperties.defaultProps.getProperty("custo.porHora");
 	}
 
 

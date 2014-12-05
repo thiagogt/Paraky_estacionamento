@@ -9,9 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
-import com.sun.org.apache.xerces.internal.impl.dv.xs.DayDV;
 
-import sun.security.krb5.internal.Ticket;
 import br.com.parakyestacionamento.domain.TicketParaky;
 import br.com.parakyestacionamento.dominio.Car;
 import br.com.parakyestacionamento.dominio.DailyPayment;
@@ -30,6 +28,8 @@ public class DailyBean {
 	private DailyPayment newDaily;
 	private int idClosedTicket =0;
 	private List<TicketParaky> ticketList;
+	private String costPerDay = null;
+	private String costPerHour = null;
 	
 	public void saveNewDaily(ActionEvent event){
 		CarModelBD carModel = new CarModelBD();
@@ -45,7 +45,7 @@ public class DailyBean {
 					idCar = carModel.insert(newCar);
 				else
 					ParakyMessage.addMessage("Placa já cadastrada no sistema.");
-				newDaily = new DailyPayment(Calendar.getInstance().getTime());
+				
 				newDaily.setIdCarCharged(idCar);
 				newDaily.setCheckin(Calendar.getInstance().getTime());
 				if(newDaily.isChargedPerHour()){
@@ -67,7 +67,7 @@ public class DailyBean {
 					System.out.println(e);
 				}
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			ParakyMessage.addErrorMessage("Erro ao salvar diária!"," Nao foi possivel inserir dado no banco de dados. Contate o administrador do sistema.");
 			System.out.println("Erro ao inserir novo diaria: "+e.getMessage());
 			System.out.println(e);
@@ -199,6 +199,27 @@ public class DailyBean {
 	public void setTicketList(List<TicketParaky> ticketList) {
 		this.ticketList = ticketList;
 	}
+
 	
+	public String getCostPerHour() {
+		if(costPerHour == null)
+			costPerHour = AppProperties.defaultProps.getProperty("custo.porHora");
+		return costPerHour;
+	}
+
+
+	public String getCostPerDay() {
+		if(costPerDay == null)
+			costPerDay = AppProperties.defaultProps.getProperty("custo.diaria"); 
+		return costPerDay;
+	}
+
+	public void setCostPerDay(String costPerDay) {
+		this.costPerDay = costPerDay;
+	}
+
+	public void setCostPerHour(String costPerHour) {
+		this.costPerHour = costPerHour;
+	}
 	
 }
