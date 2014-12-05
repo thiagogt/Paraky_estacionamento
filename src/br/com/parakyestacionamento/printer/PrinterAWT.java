@@ -3,14 +3,19 @@ package br.com.parakyestacionamento.printer;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import javax.imageio.ImageIO;
 
 import br.com.parakyestacionamento.dominio.Car;
 import br.com.parakyestacionamento.dominio.DailyPayment;
@@ -120,28 +125,43 @@ public class PrinterAWT implements Printable{
 	private void createLayoutTicketForCheckin(Graphics graphics) {
 		
 		Date actualDate = Calendar.getInstance().getTime();
+		BufferedImage       image = loadImageFromSystem();
+		graphics.drawImage(image, 50, 0, 124, 78,null);
 		
-		graphics.drawString("======= Estacionamento Paraky =======", 0, 20);
-		 graphics.drawString("Ticket número : " +daily.getIdDailyPayment(), 40, 40);
+		//graphics.drawString("======= Estacionamento Paraky =======", 0, 100);
+		 graphics.drawString("Ticket número : " +daily.getIdDailyPayment(), 40, 120);
 		 SimpleDateFormat sdf  =  new SimpleDateFormat("dd/MM/yyyy  HH:mm:ss");
 		 String data  = sdf.format(actualDate);
-		 graphics.drawString(data, 45, 60);
-	    graphics.drawString("APRESENTE ESSE TICKET PARA", 20, 80);
-	    graphics.drawString("RETIRAR SEU VEÍCULO", 40, 90);
-	    graphics.drawString("-------------------------------------------------------------", 0, 100);
-	    graphics.drawString("Placa      : "+car.getCarPlate(), 0, 120);
-	    graphics.drawString("Marca     : "+car.getCarBrand(), 0, 130);
-	    graphics.drawString("Modelo   : "+car.getModel(), 0, 140);
+		 graphics.drawString(data, 45, 140);
+	    graphics.drawString("APRESENTE ESSE TICKET PARA", 20, 160);
+	    graphics.drawString("RETIRAR SEU VEÍCULO", 40, 170);
+	    graphics.drawString("-------------------------------------------------------------", 0, 180);
+	    graphics.drawString("Placa      : "+car.getCarPlate(), 0, 200);
+	    graphics.drawString("Marca     : "+car.getCarBrand(), 0, 210);
+	    graphics.drawString("Modelo   : "+car.getModel(), 0, 220);
 	   	if(daily.isChargedPerHour() )    
-	   		graphics.drawString("Custo por hora : R$ "+daily.getCost(), 0, 170);
+	   		graphics.drawString("Custo por hora : R$ "+daily.getCost(), 0, 250);
 	   	else{
 	   		String completeDailyCost = getCostPerDay();
-	   		graphics.drawString("Custo da diária : R$ "+completeDailyCost, 0, 170);
+	   		graphics.drawString("Custo da diária : R$ "+completeDailyCost, 0, 250);
 	   	}
-	    graphics.drawString("-------------------------------------------------------------", 0, 190);
-	    graphics.drawString("Muito obrigado pela ", 48, 230);
-	    graphics.drawString("sua preferência!", 53, 240);
+	    graphics.drawString("-------------------------------------------------------------", 0, 260);
+	    graphics.drawString("Muito obrigado pela ", 48, 310);
+	    graphics.drawString("sua preferência!", 53, 320);
 
+		
+	}
+
+
+	private BufferedImage loadImageFromSystem() {
+		BufferedImage img = null;
+		try {
+			String baseFile = AppProperties.defaultProps.getProperty("baseFile");
+			File file = new File(baseFile+"WebContent/images/paraky_logo.png");
+		    img = ImageIO.read(file);
+		} catch (IOException e) {
+		}
+		return img;
 		
 	}
 
