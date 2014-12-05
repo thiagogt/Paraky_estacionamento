@@ -54,8 +54,8 @@ public class DailyBean {
 				else
 					newDaily.setCost(getDayCost());
 				
-				dailyModel.insert(newDaily);
-				
+				int id = dailyModel.insert(newDaily);
+				newDaily.setIdDailyPayment(id);
 								
 				PrinterAWT printer = new PrinterAWT();
 				try {
