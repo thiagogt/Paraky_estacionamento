@@ -12,7 +12,7 @@
 			
 	</h:head>
 	<h:body>
-		<h:form>
+		<h:form id="form">
 			<p:growl id="messages"/>
 			
 			<div class="header_paraky">
@@ -26,10 +26,32 @@
 				<spam>Criar vaga</spam>
 				
 			</div>
+			<div class="form_body">
+				<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+			        <p:outputLabel for="client" value="Dono da vaga:" />
+			        <p:selectOneMenu id="client" value="#{parkingBean.idClientSelected}">
+			        	<f:selectItem itemLabel="Selecione..." itemValue="0"/>  
+			          
+			        	<f:selectItems   value="#{clientBean.primaryClientList}"  
+                               var="client"  
+                               itemValue="#{client.idClient}"  
+                               itemLabel="#{client.name} #{client.lastName}"/>  
+			          </p:selectOneMenu>
+			 		
+					<p:outputLabel for="payDay" value="Dia do pagamento:" />
+				 	<p:inputText id="payDay" value="#{parkingBean.newParkingSpace.payDay}" required="true" requiredMessage="Deve ser cadastrado um dia de pagamento do mes!" />
+				 	
+				 	<p:outputLabel for="typeParking" value="Tipo de vaga:" />
+				 	<p:inputText id="typeParking" value="#{parkingBean.newParkingSpace.typeParkingSpace}" />
+				 				 	
+				 	<p:outputLabel for="cost" value="Custo da mensalidade:" />
+				 	<p:inputText id="cost" value="#{parkingBean.newParkingSpace.parkingSpaceCost}" required="true"/>
+				 	
+				</h:panelGrid>
+			</div>
 			
-	
 			<div class="submit_buttons_lower_page">
-			    <p:commandButton value="Submit" icon="ui-icon-check" />
+			    <p:commandButton value="Salvar" icon="ui-icon-check" update="form" ajax="false" actionListener="#{parkingBean.saveNewParkingSpace}"/>
  			</div>			
 		</h:form>
 	</h:body>

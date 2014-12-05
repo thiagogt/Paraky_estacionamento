@@ -12,7 +12,7 @@
 			
 	</h:head>
 	<h:body>
-		<h:form>
+		<h:form id="form">
 			<p:growl id="messages"/>
 			
 			<div class="header_paraky">
@@ -27,10 +27,61 @@
 				
 			</div>
 			
-	
-			<div class="submit_buttons_lower_page">
-			    <p:commandButton value="Submit" icon="ui-icon-check" />
- 			</div>			
+	<div class="menu_filter">
+				
+			        <p:selectOneMenu id="client" value="#{parkingBean.idClientSelected}">
+			        	<f:selectItem itemLabel="Selecione..." itemValue="0"/>  
+			          
+			        	<f:selectItems   value="#{clientBean.primaryClientList}"  
+                               var="client"  
+                               itemValue="#{client.idClient}"  
+                               itemLabel="#{client.name} #{client.lastName}"/>  
+		          	</p:selectOneMenu>
+		          	
+		          	 <p:commandButton value="Filtrar" icon="ui-icon-check" update="form" ajax="false" actionListener="#{parkingBean.filterParentList}"/>
+			</div>
+			
+			<div  id="table" class="data_table_center_page">
+				<p:dataTable id="parkingBeanTable" var="" editable="true" value="#{parkingBean.parkingList}" >
+				
+					<p:ajax event="rowEdit" listener="#{parkingBean.onRowEdit}" update=":form:messages" />
+			      	<p:column headerText="Vaga" sortBy="#{parking.idParkingSpace}">
+			      	<p:cellEditor>
+				            <f:facet name="output"><h:outputText value="#{parking.idParkingSpace}" /></f:facet>
+				            <f:facet name="input"><h:inputText value="#{parking.idParkingSpace}" /></f:facet>
+				     </p:cellEditor>
+			        </p:column>
+			      
+			        <p:column headerText="Cliente" sortBy="#{parking.clientName}">
+			        <p:cellEditor>
+				            <f:facet name="output"><h:outputText value="#{parking.clientName}" /></f:facet>
+				            <f:facet name="input"><h:inputText value="#{parking.clientName}" /></f:facet>
+		            </p:cellEditor>
+			        </p:column>
+			        <p:column headerText="Data de contratacao" sortBy="#{parking.contractDateString}">
+			        <p:cellEditor>
+				            <f:facet name="output"><h:outputText value="#{parking.contractDateString}" /></f:facet>
+				            <f:facet name="input"><h:inputText value="#{parking.contractDateString}" /></f:facet>
+		            </p:cellEditor>
+			        </p:column>
+			        <p:column headerText="Dia do pagamento" sortBy="#{parking.payday}">
+				        <p:cellEditor>
+				            <f:facet name="output"><h:outputText value="#{parking.payday}" /></f:facet>
+				            <f:facet name="input"><p:inputText  value="#{parking.payday}" /></f:facet>
+		            </p:cellEditor>
+			        </p:column>
+			        <p:column headerText="Custo da mensalidade" sortBy="#{parking.parkingSpaceCost}">
+				        <p:cellEditor>
+				            <f:facet name="output"><h:outputText  value="#{parking.parkingSpaceCost}" /></f:facet>
+				            <f:facet name="input"><p:inputText  value="#{parking.parkingSpaceCost}" /></f:facet>
+			            </p:cellEditor>
+			        </p:column>
+			        <p:column style="width:32px">
+						<p:rowEditor />
+					</p:column>		        
+			    </p:dataTable>
+			</div>
+				
 		</h:form>
 	</h:body>
 </html>

@@ -1,6 +1,10 @@
 package br.com.parakyestacionamento.dominio;
 
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import br.com.parakyestacionamento.modeloBD.ClientModelBD;
 
 public class ParkingSpace {
 
@@ -11,6 +15,8 @@ public class ParkingSpace {
 	private Date contractDate ;
 	private double parkingSpaceCost;
 	
+	private String contractDateString;
+	private String clientName;
 	
 	public ParkingSpace(int newIdClientOwner){
 		this.idClientOwner = newIdClientOwner;
@@ -74,6 +80,45 @@ public class ParkingSpace {
 
 	public void setParkingSpaceCost(double parkingSpaceCost) {
 		this.parkingSpaceCost = parkingSpaceCost;
+	}
+
+
+	public String getContractDateString() {
+		SimpleDateFormat stf = new SimpleDateFormat("dd/MM/yyyy");
+		contractDateString = stf.format(contractDate);
+		return contractDateString;
+	}
+
+
+	public void setContractDateString(String contractDateString) {
+		this.contractDateString = contractDateString;
+	}
+
+
+	public String getClientName() {
+		//Shame of this piece of code.I ll improve this later.....swear!
+		if(clientName == null)
+			if(idClientOwner != 0){
+				ClientModelBD model = new ClientModelBD();
+				Client client;
+				try {
+					client = model.select(idClientOwner);
+					clientName = client.getName()+" "+client.getLastName();
+				} catch (SQLException e) {
+					System.out.println("Erro ao buscar pelo client da vaga: "+e.getMessage());
+					System.out.println(e);
+				}
+				
+				
+				
+			}
+			
+		return clientName;
+	}
+
+
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
 	}
 	
 	

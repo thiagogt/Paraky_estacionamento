@@ -35,9 +35,23 @@ public class ClientModelBD implements BDModel{
 	}
 
 	@Override
-	public Object select(int id) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public Client select(int id) throws SQLException {
+		List<Client> clientList;
+		Connection connection = null;
+		try {
+			connection =	ConnectionDBFactory.getDataBaseConnection();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ResultSet rs = null;
+		
+		rs = connection.prepareStatement("select * from client where id_client="+id).executeQuery();
+		 clientList= resultSetListToObjectList(rs);
+	    
+		connection.close();
+		
+		return clientList.get(0);
 	}
 
 	@Override
