@@ -43,6 +43,9 @@ public class ParkingSpaceBean {
 		}
 	}
 
+	public void filterClientList(ActionEvent event){
+		
+	}
 
 	private String allTheFieldsAreCorrets() {
 		if(idClientSelected == 0)

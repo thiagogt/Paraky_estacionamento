@@ -27,7 +27,7 @@
 				
 			</div>
 			
-	<div class="menu_filter">
+			<div class="menu_filter">
 				
 			        <p:selectOneMenu id="client" value="#{parkingBean.idClientSelected}">
 			        	<f:selectItem itemLabel="Selecione..." itemValue="0"/>  
@@ -38,36 +38,27 @@
                                itemLabel="#{client.name} #{client.lastName}"/>  
 		          	</p:selectOneMenu>
 		          	
-		          	 <p:commandButton value="Filtrar" icon="ui-icon-check" update="form" ajax="false" actionListener="#{parkingBean.filterParentList}"/>
+		          	 <p:commandButton value="Filtrar" icon="ui-icon-check" update="form" ajax="false" actionListener="#{parkingBean.filterClientList}"/>
 			</div>
 			
 			<div  id="table" class="data_table_center_page">
-				<p:dataTable id="parkingBeanTable" var="" editable="true" value="#{parkingBean.parkingList}" >
+				<p:dataTable id="parkingBeanTable" var="parking" editable="true" value="#{parkingBean.parkingList}" >
 				
 					<p:ajax event="rowEdit" listener="#{parkingBean.onRowEdit}" update=":form:messages" />
 			      	<p:column headerText="Vaga" sortBy="#{parking.idParkingSpace}">
-			      	<p:cellEditor>
-				            <f:facet name="output"><h:outputText value="#{parking.idParkingSpace}" /></f:facet>
-				            <f:facet name="input"><h:inputText value="#{parking.idParkingSpace}" /></f:facet>
-				     </p:cellEditor>
+				            <h:outputText value="#{parking.idParkingSpace}" />
 			        </p:column>
 			      
 			        <p:column headerText="Cliente" sortBy="#{parking.clientName}">
-			        <p:cellEditor>
-				            <f:facet name="output"><h:outputText value="#{parking.clientName}" /></f:facet>
-				            <f:facet name="input"><h:inputText value="#{parking.clientName}" /></f:facet>
-		            </p:cellEditor>
+				            <h:outputText value="#{parking.clientName}" />
 			        </p:column>
 			        <p:column headerText="Data de contratacao" sortBy="#{parking.contractDateString}">
-			        <p:cellEditor>
-				            <f:facet name="output"><h:outputText value="#{parking.contractDateString}" /></f:facet>
-				            <f:facet name="input"><h:inputText value="#{parking.contractDateString}" /></f:facet>
-		            </p:cellEditor>
+				           <h:outputText value="#{parking.contractDateString}" />
 			        </p:column>
-			        <p:column headerText="Dia do pagamento" sortBy="#{parking.payday}">
+			        <p:column headerText="Dia do pagamento" sortBy="#{parking.payDay}">
 				        <p:cellEditor>
-				            <f:facet name="output"><h:outputText value="#{parking.payday}" /></f:facet>
-				            <f:facet name="input"><p:inputText  value="#{parking.payday}" /></f:facet>
+				            <f:facet name="output"><h:outputText value="#{parking.payDay}" /></f:facet>
+				            <f:facet name="input"><p:inputText  value="#{parking.payDay}" /></f:facet>
 		            </p:cellEditor>
 			        </p:column>
 			        <p:column headerText="Custo da mensalidade" sortBy="#{parking.parkingSpaceCost}">
