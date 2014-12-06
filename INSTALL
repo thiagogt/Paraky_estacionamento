@@ -1,0 +1,12 @@
+Para instalar o sistema, você precisa:
+	- Instalar o Eclipse EE
+	- Baixar o Apache tomcat 7 e configurá-lo no Eclipse.
+	- Importar o arquivo .project do repositório para o Eclipse.
+	- Alterar os arquivos /doc/app.properties e
+	/src/br/com/parakyestacionamento/properties/AppProperties.java para utilizar
+	o diretório local correto
+	- Iniciar o servidor do projeto pelo Eclipse.
+
+Ao final desses passos, o sistema deve estar disponível em 
+localhost:8080/Paraky_estacionamento
+
