@@ -79,9 +79,15 @@ public class DailyPaymentModelBD implements BDModel{
 		stmt.setBoolean(5, daily.isChargedPerHour());
 		stmt.execute();
 		
+		String lastIdInsertedQuery = "SELECT TOP 1 id_daily_payment FROM daily_payment ORDER BY id_daily_payment DESC";
+		stmt = connection.prepareStatement(lastIdInsertedQuery);
+		ResultSet rs = stmt.executeQuery();
+		rs.next();
+		int id_daily_payment = rs.getInt(1);
+		
 		connection.close();
 
-		return 0;
+		return id_daily_payment;
 	}
 
 	@Override
