@@ -14,8 +14,8 @@ public class ParkingSpaceModelBD implements BDModel{
 
 	@Override
 	public ParkingSpace bdToObject(ResultSet rs) throws SQLException {
-		ParkingSpace parking = new ParkingSpace(rs.getInt(1));
-		parking.setIdClientOwner(rs.getInt(2));
+		ParkingSpace parking = new ParkingSpace(rs.getInt(2));
+		parking.setIdParkingSpace(rs.getInt(1));
 		parking.setPayDay(rs.getInt(3));
 		parking.setTypeParkingSpace(rs.getString(4));
 
@@ -44,8 +44,8 @@ public class ParkingSpaceModelBD implements BDModel{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		PreparedStatement stmt = connection.prepareStatement("insert into parking_space (id_parking_space ,id_client_owner,pay_day,type_parking_space,contract_date,parking_space_cost) values(" +
-				"parking_space_sequence.nextval,?,?,?,?,?)");
+		PreparedStatement stmt = connection.prepareStatement("INSERT INTO PARKING_SPACE (id_parking_space,id_client_owner,pay_day,type_parking_space,contract_date,parking_space_cost) " +
+				"values (parking_sequence.nextval,?,?,?,?,?)");
 		
 		stmt.setInt(1, parkingSpace.getIdClientOwner());
 		stmt.setInt(2, parkingSpace.getPayDay());
@@ -105,6 +105,28 @@ public class ParkingSpaceModelBD implements BDModel{
 		    records.add(bdToObject(rs));
 		}
 		return records;
+	}
+
+	public List<ParkingSpace> selectAllSpaceForThisClient(int idClientSelected) throws SQLException {
+		List<ParkingSpace> parkingSpaceList;		
+
+		Connection connection = null;
+		try {
+			connection =	ConnectionDBFactory.getDataBaseConnection();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		PreparedStatement stmt = connection.prepareStatement("select * from parking_space where id_client_owner="+idClientSelected);
+		
+		ResultSet rs = stmt.executeQuery();
+		
+		parkingSpaceList = resultSetListToObjectList(rs);
+		
+		connection.close();
+
+		return parkingSpaceList;
+
 	}
 
 }

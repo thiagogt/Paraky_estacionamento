@@ -10,7 +10,7 @@ public class ParakyMessage {
 	        FacesContext.getCurrentInstance().addMessage(null, message);
 	    }
 	 
-	 public static void addErrorMessage(String title,String summary) {
+	 public static void addErrorMessageSub(String title,String summary) {
 	        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, title,summary);
 	        FacesContext.getCurrentInstance().addMessage(null, message);
 	    }

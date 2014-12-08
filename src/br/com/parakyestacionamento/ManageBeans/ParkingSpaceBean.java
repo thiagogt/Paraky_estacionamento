@@ -37,13 +37,30 @@ public class ParkingSpaceBean {
 				ParakyMessage.addMessage("Cadastro realizado com sucesso!");
 			}
 		} catch (SQLException e) {
-			ParakyMessage.addErrorMessage("Erro ao salvar vaga!"," Nao foi possivel inserir dado no banco de dados. Contate o administrador do sistema.");
+			ParakyMessage.addErrorMessageSub("Erro ao salvar vaga!"," Nao foi possivel inserir dado no banco de dados. Contate o administrador do sistema.");
 			System.out.println("Erro ao inserir nova vaga: "+e.getMessage());
 			System.out.println(e);
 		}
 	}
 
 	public void filterClientList(ActionEvent event){
+		
+		if(idClientSelected != 0){
+			
+			ParkingSpaceModelBD model = new ParkingSpaceModelBD();
+			
+			try {
+				parkingList = model.selectAllSpaceForThisClient(idClientSelected);
+			} catch (SQLException e) {
+				ParakyMessage.addErrorMessageSub("Erro ao filtrar lista de vagas!"," Contate o administrador do sistema.");
+				System.out.println("Erro ao filtrar lista de vagas do cliente de id "+idClientSelected+" : "+e.getMessage());
+				System.out.println(e);
+			}
+		}
+		else{
+			parkingList = null;
+		}
+		
 		
 	}
 
@@ -71,7 +88,7 @@ public class ParkingSpaceBean {
 				model.update(parkingEdited);
 				ParakyMessage.addMessage(" Vaga "+parkingEdited.getIdParkingSpace()+" editada com sucesso!");
 			} catch (SQLException e) {
-				ParakyMessage.addErrorMessage("Erro ao editar vaga!","Contate o administrador do sistema.");
+				ParakyMessage.addErrorMessageSub("Erro ao editar vaga!","Contate o administrador do sistema.");
 				System.out.println("Erro ao inserir nova vaga: "+e.getMessage());
 				System.out.println(e);			}
 	 	}

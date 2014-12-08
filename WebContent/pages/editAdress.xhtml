@@ -12,7 +12,7 @@
 			
 	</h:head>
 	<h:body>
-		<h:form>
+		<h:form id="form">
 			<p:growl id="messages"/>
 			
 			<div class="header_paraky">
@@ -27,10 +27,65 @@
 				
 			</div>
 			
-	
-			<div class="submit_buttons_lower_page">
-			    <p:commandButton value="Submit" icon="ui-icon-check" />
- 			</div>			
+		<div class="menu_filter">
+				
+			        <p:selectOneMenu id="client" value="#{adressBean.idClientSelected}">
+			        	<f:selectItem itemLabel="Tudo" itemValue="0"/>  
+			          
+			        	<f:selectItems   value="#{clientBean.primaryClientList}"  
+                               var="client"  
+                               itemValue="#{client.idClient}"  
+                               itemLabel="#{client.name} #{client.lastName}"/>  
+		          	</p:selectOneMenu>
+		          	
+		          	 <p:commandButton value="Filtrar" icon="ui-icon-check" update="form" ajax="false" actionListener="#{adressBean.filterClientList}"/>
+			</div>
+			
+			<div  id="table" class="data_table_center_page">
+				<p:dataTable id="adressBeanTable" var="adress" editable="true" value="#{adressBean.adressList}" >
+				
+					<p:ajax event="rowEdit" listener="#{adressBean.onRowEdit}" update=":form:messages" />
+			      	<p:column headerText="Cliente" sortBy="#{adress.clientName}">
+				            <h:outputText value="#{adress.clientName}" />
+		            </p:column>
+			        
+			        <p:column headerText="Rua" sortBy="#{adress.street}">
+				        <p:cellEditor>
+				            <f:facet name="output"><h:outputText value="#{adress.street}" /></f:facet>
+				            <f:facet name="input"><p:inputText  value="#{adress.street}" /></f:facet>
+		            	</p:cellEditor>
+			        </p:column>
+			        <p:column headerText="Numero" sortBy="#{adress.number}">
+				        <p:cellEditor>
+				            <f:facet name="output"><h:outputText value="#{adress.number}" /></f:facet>
+				            <f:facet name="input"><p:inputText  value="#{adress.number}" /></f:facet>
+		            	</p:cellEditor>
+			        </p:column>
+			        <p:column headerText="Complemento" sortBy="#{adress.complement}">
+				        <p:cellEditor>
+				            <f:facet name="output"><h:outputText value="#{adress.complement}" /></f:facet>
+				            <f:facet name="input"><p:inputText  value="#{adress.complement}" /></f:facet>
+		            	</p:cellEditor>
+			        </p:column>
+			        
+			        <p:column headerText="Bairro" sortBy="#{adress.neighborhood}">
+				        <p:cellEditor>
+				            <f:facet name="output"><h:outputText value="#{adress.neighborhood}" /></f:facet>
+				            <f:facet name="input"><p:inputText  value="#{adress.neighborhood}" /></f:facet>
+		            </p:cellEditor>
+			        </p:column>
+			        <p:column headerText="Cidade" sortBy="#{adress.city}">
+				        <p:cellEditor>
+				            <f:facet name="output"><h:outputText value="#{adress.city}" /></f:facet>
+				            <f:facet name="input"><p:inputText  value="#{adress.city}" /></f:facet>
+		            	</p:cellEditor>
+			        </p:column>
+			        <p:column style="width:32px">
+						<p:rowEditor />
+					</p:column>		        
+			    </p:dataTable>
+			</div>
+				
 		</h:form>
 	</h:body>
 </html>

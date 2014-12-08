@@ -24,11 +24,11 @@
 			<div class="description_title">
 				
 				<spam>Criar endereco</spam>
-				
+			</div>	
 			<div class="form_body">
 				<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
 			        <p:outputLabel for="client" value="Cliente :" />
-			        <p:selectOneMenu id="client" value="#{parentBean.idClientSelected}">
+			        <p:selectOneMenu id="client" value="#{adressBean.idClientSelected}">
 			        	<f:selectItem itemLabel="Selecione..." itemValue="0"/>  
 			          
 			        	<f:selectItems   value="#{clientBean.primaryClientList}"  
@@ -36,34 +36,27 @@
                                itemValue="#{client.idClient}"  
                                itemLabel="#{client.name} #{client.lastName}"/>  
 			          </p:selectOneMenu>
-			 		
 
-					<p:outputLabel for="name" value="Nome:" />
-				 	<p:inputText id="name" value="#{parentBean.newParent.name}" required="true" requiredMessage="O familiar deve ter nome" />
+					<p:outputLabel for="street" value="Rua:" />
+				 	<p:inputText id="street" value="#{adressBean.newAdress.street}" required="true" requiredMessage="Deve haver um nome da rua. " />
 				 	
-				 	<p:outputLabel for="lastName" value="Sobrenome:" />
-				 	<p:inputText id="lastName" value="#{parentBean.newParent.lastName}" />
+				 	<p:outputLabel for="number" value="Numero:" />
+				 	<p:inputText id="number" value="#{adressBean.newAdress.number}" />
 				 	
-				 	<p:outputLabel for="cpf" value="CPF:" />
-				 	<p:inputText id="cpf" value="#{parentBean.newParent.cpf}" required="true" requiredMessage="O Cpf eh obrigatorio!" />
+				 	<p:outputLabel for="complement" value="Complemento:" />
+				 	<p:inputText id="complement" value="#{adressBean.newAdress.complement}"  />
 				 	
-					<p:outputLabel for="tel_1" value="Telefone 1:" />
-				 	<p:inputText id="tel_1" value="#{parentBean.newParent.tel_1}"/>
+					<p:outputLabel for="neighborhood" value="Bairro:" />
+				 	<p:inputText id="neighborhood" value="#{adressBean.newAdress.neighborhood}"/>
 				 	
-				 	<p:outputLabel for="tel_2" value="Telefone 2:" />
-				 	<p:inputText id="tel_2" value="#{parentBean.newParent.tel_2}"/>
-				 	
-				 	<p:outputLabel for="Email" value="Email:" />
-				 	<p:inputText id="Email" value="#{parentBean.newParent.email}"/>
-					
-					<p:outputLabel for="birthdayDate" value="Data de nascimento:" />
- 			        <p:calendar id="birthdayDate" value="#{parentBean.newParent.birthdayDate}" mode="inline" />
+				 	<p:outputLabel for="city" value="Cidade:" />
+				 	<p:inputText id="city" value="#{adressBean.newAdress.city}"/>
 				 	
 				</h:panelGrid>
 			</div>
 			
 			<div class="submit_buttons_lower_page">
-			    <p:commandButton value="Salvar" icon="ui-icon-check" update="form" ajax="false" actionListener="#{parentBean.saveNewParent}"/>
+			    <p:commandButton value="Salvar" icon="ui-icon-check" update="form" ajax="false" actionListener="#{adressBean.saveNewAdress}"/>
  			</div>			
 		</h:form>
 	</h:body>

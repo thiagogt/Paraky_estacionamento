@@ -62,13 +62,13 @@ public class DailyBean {
 					printer.printNewDailyTicketForCheckin(newCar, newDaily);
 					ParakyMessage.addMessage("Di·ria cadastrada com sucesso.");
 				} catch (PrinterException e) {
-					ParakyMessage.addErrorMessage("Erro ao imprimir ticket!"," Contate o administrador do sistema.");
+					ParakyMessage.addErrorMessageSub("Erro ao imprimir ticket!"," Contate o administrador do sistema.");
 					System.out.println("Erro ao imprimir nova diaria: "+e.getMessage());
 					System.out.println(e);
 				}
 			}
 		} catch (Exception e) {
-			ParakyMessage.addErrorMessage("Erro ao salvar di·ria!"," Nao foi possivel inserir dado no banco de dados. Contate o administrador do sistema.");
+			ParakyMessage.addErrorMessageSub("Erro ao salvar di·ria!"," Nao foi possivel inserir dado no banco de dados. Contate o administrador do sistema.");
 			System.out.println("Erro ao inserir novo diaria: "+e.getMessage());
 			System.out.println(e);
 		}
@@ -99,12 +99,12 @@ public class DailyBean {
 						printer.printTicketValueForCheckout(car, daily);
 						ParakyMessage.addMessage("Di·ria fechada com sucesso.");
 					} catch (PrinterException e) {
-						ParakyMessage.addErrorMessage("Erro ao imprimir ticket!"," Contate o administrador do sistema.");
+						ParakyMessage.addErrorMessageSub("Erro ao imprimir ticket!"," Contate o administrador do sistema.");
 						System.out.println("Erro ao imprimir nova diaria: "+e.getMessage());
 						System.out.println(e);
 					}
 			} catch (SQLException e) {
-				ParakyMessage.addErrorMessage("Erro ao salvar di·ria!"," Nao foi possivel inserir dado no banco de dados. Contate o administrador do sistema.");
+				ParakyMessage.addErrorMessageSub("Erro ao salvar di·ria!"," Nao foi possivel inserir dado no banco de dados. Contate o administrador do sistema.");
 				System.out.println("Erro ao inserir novo diaria: "+e.getMessage());
 				System.out.println(e);
 			}
@@ -126,13 +126,13 @@ public class DailyBean {
 		try {
 			DailyPayment ticket = thisTicketExist(idClosedTicket); 
 			if(ticket == null)
-				ParakyMessage.addErrorMessage("Ticket inexistente!"," N√∫mero de indentifica√ß√£o "+ idClosedTicket+" inexistente na base.");
+				ParakyMessage.addErrorMessageSub("Ticket inexistente!"," N√∫mero de indentifica√ß√£o "+ idClosedTicket+" inexistente na base.");
 			else{
 				newDaily = ticket; 
 				newCar = searchForTicketCar();
 			}
 		} catch (SQLException e) {
-			ParakyMessage.addErrorMessage("Erro ao buscar ticket!"," Nao foi possivel inserir dado no banco de dados. Contate o administrador do sistema.");
+			ParakyMessage.addErrorMessageSub("Erro ao buscar ticket!"," Nao foi possivel inserir dado no banco de dados. Contate o administrador do sistema.");
 			System.out.println("Erro ao inserir novo diaria: "+e.getMessage());
 			System.out.println(e);
 		}
@@ -188,7 +188,7 @@ public class DailyBean {
 			try {
 				ticketList = model.selectAll();
 			} catch (SQLException e) {
-				ParakyMessage.addErrorMessage("Erro ao buscar lista de ticket!","Contate o administrador do sistema.");
+				ParakyMessage.addErrorMessageSub("Erro ao buscar lista de ticket!","Contate o administrador do sistema.");
 				System.out.println("Erro ao buscar lista de ticket: "+e.getMessage());
 				System.out.println(e);
 			}

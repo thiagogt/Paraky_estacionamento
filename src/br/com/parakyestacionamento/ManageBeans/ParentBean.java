@@ -49,7 +49,7 @@ public class ParentBean {
 				ParakyMessage.addMessage("Cadastro realizado com sucesso!");
 			}
 		} catch (SQLException e) {
-			ParakyMessage.addErrorMessage("Erro ao salvar familiar!"," Nao foi possivel inserir dado no banco de dados. Contate o administrador do sistema.");
+			ParakyMessage.addErrorMessageSub("Erro ao salvar familiar!"," Nao foi possivel inserir dado no banco de dados. Contate o administrador do sistema.");
 			System.out.println("Erro ao inserir novo familiar: "+e.getMessage());
 			System.out.println(e);
 		}
@@ -80,7 +80,7 @@ public class ParentBean {
 					model.update(parentEdited);
 					ParakyMessage.addMessage("Familiar "+parentEdited.getName()+" "+parentEdited.getLastName()+" editado com sucesso!");
 				} catch (SQLException e) {
-					ParakyMessage.addErrorMessage("Erro ao editar familiar!","Contate o administrador do sistema.");
+					ParakyMessage.addErrorMessageSub("Erro ao editar familiar!","Contate o administrador do sistema.");
 					System.out.println("Erro ao editar familiar:"+parentEdited.getName()+" "+parentEdited.getLastName()+" "+e.getMessage());
 					System.out.println(e);			}
 		 	}

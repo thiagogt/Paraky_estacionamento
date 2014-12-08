@@ -35,7 +35,7 @@ public class ClientBean {
 				ParakyMessage.addMessage("Cadastro realizado com sucesso!");
 			}
 		} catch (SQLException e) {
-			ParakyMessage.addErrorMessage("Erro ao salvar cliente!"," Nao foi possivel inserir dado no banco de dados. Contate o administrador do sistema.");
+			ParakyMessage.addErrorMessageSub("Erro ao salvar cliente!"," Nao foi possivel inserir dado no banco de dados. Contate o administrador do sistema.");
 			System.out.println("Erro ao inserir novo cliente: "+e.getMessage());
 			System.out.println(e);
 		}
@@ -64,7 +64,7 @@ public class ClientBean {
 					model.update(clientEdited);
 					ParakyMessage.addMessage("Cliente "+clientEdited.getName()+" "+clientEdited.getLastName()+" editado com sucesso!");
 				} catch (SQLException e) {
-					ParakyMessage.addErrorMessage("Erro ao editar cliente!","Contate o administrador do sistema.");
+					ParakyMessage.addErrorMessageSub("Erro ao editar cliente!","Contate o administrador do sistema.");
 					System.out.println("Erro ao editar cliente:"+clientEdited.getName()+" "+clientEdited.getLastName()+" "+e.getMessage());
 					System.out.println(e);			}
 		 	}

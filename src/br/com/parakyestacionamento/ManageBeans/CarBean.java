@@ -34,7 +34,7 @@ public class CarBean {
 				ParakyMessage.addMessage("Cadastro realizado com sucesso!");
 			}
 		} catch (SQLException e) {
-			ParakyMessage.addErrorMessage("Erro ao salvar carro!"," Nao foi possivel inserir dado no banco de dados. Contate o administrador do sistema.");
+			ParakyMessage.addErrorMessageSub("Erro ao salvar carro!"," Nao foi possivel inserir dado no banco de dados. Contate o administrador do sistema.");
 			System.out.println("Erro ao inserir novo carro: "+e.getMessage());
 			System.out.println(e);
 		}
@@ -66,7 +66,7 @@ public class CarBean {
 					model.update(carEdited);
 					ParakyMessage.addMessage(" "+carEdited.getCarBrand()+" "+carEdited.getModel()+" editado com sucesso!");
 				} catch (SQLException e) {
-					ParakyMessage.addErrorMessage("Erro ao editar carro!","Contate o administrador do sistema.");
+					ParakyMessage.addErrorMessageSub("Erro ao editar carro!","Contate o administrador do sistema.");
 					System.out.println("Erro ao inserir novo carro: "+e.getMessage());
 					System.out.println(e);			}
 		 	}
@@ -102,7 +102,7 @@ public class CarBean {
 			try {
 				carList = model.selectAll();
 			} catch (SQLException e) {
-				ParakyMessage.addErrorMessage("Erro ao consultar todos os carros!","Contate o administrador do sistema.");
+				ParakyMessage.addErrorMessageSub("Erro ao consultar todos os carros!","Contate o administrador do sistema.");
 				System.out.println("Erro ao inserir novo carro: "+e.getMessage());
 				System.out.println(e);
 			}
