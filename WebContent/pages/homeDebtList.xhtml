@@ -13,7 +13,7 @@
 	</h:head>
 	<h:body>
 		<h:form id="form">
-			<p:growl id="growl"/>
+			<p:growl id="messages"/>
 			
 			<div class="header_paraky">
 				<ui:insert name="header" >
@@ -53,8 +53,12 @@
 			        <p:column headerText="Pago" sortBy="#{clientDebt.paymentStatus}">
 				        <p:selectBooleanCheckbox value="#{clientDebt.paymentStatus}" />
 			        </p:column>
-			        
+			        <p:column headerText="Enviar email" >
+				     <p:commandButton  value="cobrar" style="font-size: 1em" update=":form:messages" icon="ui-icon-mail-closed"  actionListener="#{monthlyPayment.sendMail(clientDebt)}">  
+            		</p:commandButton>
+            		</p:column>  
 			    </p:dataTable>
+			    
 			</div>
 			
 			

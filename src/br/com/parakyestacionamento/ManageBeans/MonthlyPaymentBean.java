@@ -6,19 +6,41 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+
+import org.apache.commons.mail.EmailException;
+
+import mailService.MailService;
 
 import br.com.parakyestacionamento.dominio.MonthlyPaymentPerClient;
 import br.com.parakyestacionamento.dominio.ParakyMessage;
 import br.com.parakyestacionamento.modeloBD.MonthlyPaymentBDModel;
 import br.com.parakyestacionamento.modeloBD.MonthlyPaymentPerClientModelBD;
 
-@SessionScoped
+@ViewScoped
 @ManagedBean(name="monthlyPayment")
 public class MonthlyPaymentBean {
 
 	private List<MonthlyPaymentPerClient> debtList;
+	
+	public void sendMail(MonthlyPaymentPerClient clientDebtSelected){
+		//TODO: JOgar isso para uma parte de configuracao do site. Nao faz sentido o dono nao poder mudar sua mensagem de email. 
+		String message = "Por favor, entre em contato com o Sr. Joao pois ja passou a data de pagamento de sua vaga, cadastrada para o dia "+clientDebtSelected.getPaymentDate()+" no estacionamento Paraky. O valor de sua mensalidade eh de "+clientDebtSelected.getParkingSpaceCost();
+		String subject = "Pagamento mensal do estacionamento Paraky";
+		
+		
+		String receiver = clientDebtSelected.getEmail();
+		try {
+			MailService.sendMail(message, subject, receiver);
+			ParakyMessage.addMessage("Foi enviado a cobranca para o email "+receiver);
+		} catch (EmailException e) {
+			ParakyMessage.addErrorMessageSub("Erro ao enviar email para "+receiver, "Por favor, contate seu administrador");
+			System.out.println( "Erro ao enviar email para "+receiver+" : "+e.getMessage());
+			System.out.println(e);
+		}
+		
+	}
 	
 	
 	public List<MonthlyPaymentPerClient> selectAllMounthPayers(){
@@ -68,6 +90,7 @@ public class MonthlyPaymentBean {
 			
 			
 		} catch (SQLException e) {
+			ParakyMessage.addErrorMessageSub("Erro ao buscar por devedores.", "Por favor, contate seu administrador");
 			System.out.println("Erro ao buscar por devedores: "+e.getMessage());
 			System.out.println(e);
 		}
@@ -82,6 +105,8 @@ public class MonthlyPaymentBean {
 				monthlyPaymentBdModel.updateDebt(debtClient.getIdMonthlyPayment(), debtClient.getPaymentStatus());
 			} catch (SQLException e) {
 				ParakyMessage.addMessage("Nao foi possivel salvar lista. Problema com a divida do cliente "+debtClient.getName()+" "+debtClient.getLastName());
+				System.out.println("Nao foi possivel salvar lista de devedores: "+e.getMessage());
+				System.out.println(e);
 			}
 		}
 		ParakyMessage.addMessage("Lista salva com sucesso!");
@@ -117,8 +142,4 @@ public class MonthlyPaymentBean {
 	}
 
 
-
-
-	
-	
 }
