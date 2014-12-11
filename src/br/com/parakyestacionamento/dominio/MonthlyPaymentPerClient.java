@@ -8,6 +8,7 @@ public class MonthlyPaymentPerClient {
 	private int idParkingSpace ;
 	private boolean paymentStatus ;
 	private Date paymentDate ;
+	private int payDay;
 	private String name;
 	private String lastName ;
 	private String tel_1 ;
@@ -82,6 +83,12 @@ public class MonthlyPaymentPerClient {
 	}
 	public void setDaysOfDebt(int daysOfDebt) {
 		this.daysOfDebt = daysOfDebt;
+	}
+	public int getPayDay() {
+		return payDay;
+	}
+	public void setPayDay(int payDay) {
+		this.payDay = payDay;
 	}
 	
 	
