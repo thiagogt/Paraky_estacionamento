@@ -113,6 +113,28 @@ public class MonthlyPaymentBDModel implements BDModel{
 	public int insert(Object data) throws SQLException{
 		//TODO
 		MonthlyPayment monthlyPayment = (MonthlyPayment)data;
+		
+		Connection connection = null;
+		try {
+			connection =	ConnectionDBFactory.getDataBaseConnection();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+
+		java.sql.Date actualDate = new java.sql.Date(monthlyPayment.getPaymentDate().getTime());
+		
+		PreparedStatement stmt = connection.prepareStatement("INSERT INTO monthly_payment(id_monthly_payment,id_parking_space, payment_status,payment_date ) values(monthly_payment_sequence.nextval,?,?,?);");
+		stmt.setBoolean(2, Boolean.parseBoolean(monthlyPayment.getPaymentStatus()));
+		stmt.setDate(3, actualDate);
+		stmt.setInt(1, monthlyPayment.getIdParkingSpace());
+		stmt.executeUpdate();
+		
+		connection.close();
+
+		
+		
 		return 0;
 	}
 
