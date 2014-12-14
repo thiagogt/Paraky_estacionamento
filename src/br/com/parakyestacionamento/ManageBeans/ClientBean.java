@@ -56,6 +56,7 @@ public class ClientBean {
 		 
 		 	ClientModelBD model = new ClientModelBD();
 		 	Client clientEdited =  ((Client) event.getObject());
+		 	System.out.println(clientEdited.getEmail());
 		 	String message = verifyIfEditClientIsCorrect(clientEdited);
 		 	if(message!=null)
 		 		ParakyMessage.addErrorMessage(message);

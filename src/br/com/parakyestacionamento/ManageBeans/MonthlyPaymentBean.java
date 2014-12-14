@@ -17,6 +17,7 @@ import br.com.parakyestacionamento.dominio.MonthlyPaymentPerClient;
 import br.com.parakyestacionamento.dominio.ParakyMessage;
 import br.com.parakyestacionamento.modeloBD.MonthlyPaymentBDModel;
 import br.com.parakyestacionamento.modeloBD.MonthlyPaymentPerClientModelBD;
+import br.com.parakyestacionamento.properties.AppProperties;
 
 @ViewScoped
 @ManagedBean(name="monthlyPayment")
@@ -25,8 +26,20 @@ public class MonthlyPaymentBean {
 	private List<MonthlyPaymentPerClient> debtList;
 	
 	public void sendMail(MonthlyPaymentPerClient clientDebtSelected){
+		
+		String bank = AppProperties.defaultProps.getProperty("nome.banco");
+		String count = AppProperties.defaultProps.getProperty("conta.banco");
+		String agency = AppProperties.defaultProps.getProperty("agencia.banco");
+		
 		//TODO: JOgar isso para uma parte de configuracao do site. Nao faz sentido o dono nao poder mudar sua mensagem de email. 
-		String message = "Por favor, entre em contato com o Sr. Joao pois ja passou a data de pagamento de sua vaga, cadastrada para o dia "+clientDebtSelected.getPaymentDate()+" no estacionamento Paraky. O valor de sua mensalidade eh de "+clientDebtSelected.getParkingSpaceCost();
+		String message = "Sr(a). "+clientDebtSelected.getName()+" "+clientDebtSelected.getLastName()+",\n\nPor favor, entre em contato com o Sr. Joao pois a data de pagamento de sua vaga venceu no dia" +
+				" "+clientDebtSelected.getPaymentDate()+"\n\n.O valor de R$"+clientDebtSelected.getParkingSpaceCost()+" da sua mensalidade deve ser pago no:" +
+				"\n\nBanco: " +bank+
+				"\nAgência: " +agency+
+				"\nConta: "+count+
+				"\n\nEssa mensagem foi gerada automaticamente pelo sistema Paraky estacionamento. Apenas responda caso tenha alguma dúvida." +
+				"\n\nO estacionamento Paraky agradece sua preferência.";
+		
 		String subject = "Pagamento mensal do estacionamento Paraky";
 		
 		

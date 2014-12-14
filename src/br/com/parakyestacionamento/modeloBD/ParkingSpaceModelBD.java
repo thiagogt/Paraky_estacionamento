@@ -44,18 +44,32 @@ public class ParkingSpaceModelBD implements BDModel{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		PreparedStatement stmt = connection.prepareStatement("INSERT INTO PARKING_SPACE (id_parking_space,id_client_owner,pay_day,type_parking_space,contract_date,parking_space_cost) " +
-				"values (parking_sequence.nextval,?,?,?,?,?)");
-		
-		stmt.setInt(1, parkingSpace.getIdClientOwner());
-		stmt.setInt(2, parkingSpace.getPayDay());
-		stmt.setString(3, parkingSpace.getTypeParkingSpace());
-		
-		stmt.setDate(4, new java.sql.Date(parkingSpace.getContractDate().getTime()));
-		stmt.setDouble(5, parkingSpace.getParkingSpaceCost());
-		
-		stmt.execute();
-		
+		if(parkingSpace.getIdParkingSpace() == 0){
+			PreparedStatement stmt = connection.prepareStatement("INSERT INTO PARKING_SPACE (id_parking_space,id_client_owner,pay_day,type_parking_space,contract_date,parking_space_cost) " +
+					"values (parking_sequence.nextval,?,?,?,?,?)");
+			
+			stmt.setInt(1, parkingSpace.getIdClientOwner());
+			stmt.setInt(2, parkingSpace.getPayDay());
+			stmt.setString(3, parkingSpace.getTypeParkingSpace());
+			
+			stmt.setDate(4, new java.sql.Date(parkingSpace.getContractDate().getTime()));
+			stmt.setDouble(5, parkingSpace.getParkingSpaceCost());
+			
+			stmt.execute();
+		}
+		else{
+			PreparedStatement stmt = connection.prepareStatement("INSERT INTO PARKING_SPACE (id_parking_space,id_client_owner,pay_day,type_parking_space,contract_date,parking_space_cost) " +
+					"values (?,?,?,?,?,?)");
+			stmt.setInt(1, parkingSpace.getIdParkingSpace());
+			stmt.setInt(2, parkingSpace.getIdClientOwner());
+			stmt.setInt(3, parkingSpace.getPayDay());
+			stmt.setString(4, parkingSpace.getTypeParkingSpace());
+			
+			stmt.setDate(5, new java.sql.Date(parkingSpace.getContractDate().getTime()));
+			stmt.setDouble(6, parkingSpace.getParkingSpaceCost());
+			
+			stmt.execute();
+		}
 		connection.close();
 		
 		return 0;

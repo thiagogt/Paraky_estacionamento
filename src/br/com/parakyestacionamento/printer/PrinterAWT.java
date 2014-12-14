@@ -88,8 +88,12 @@ public class PrinterAWT implements Printable{
 	    Double cost = 0.0;
 		if(daily.isChargedPerHour() ){
 			cost = Double.parseDouble(getCostPerHour());
+			
 			graphics.drawString("Custo por hora : R$ "+cost, 70, 240);
-			cost = cost*diffHours;
+			
+			if(diffHours > 0)
+				cost = cost*diffHours;
+			
 			
 		}
 		else{

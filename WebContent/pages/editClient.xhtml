@@ -28,7 +28,7 @@
 			</div>
 			
 			<div  id="table" class="data_table_center_page">
-				<p:dataTable id="clientTable" var="client" editable="true" value="#{clientBean.primaryClientList}" >
+				<p:dataTable id="clientTable" var="client" editable="true" value="#{clientBean.clientList}" >
 				
 					<p:ajax event="rowEdit" listener="#{clientBean.onRowEdit}" update=":form:messages" />
 			        <p:column headerText="Nome" sortBy="#{client.name}">

@@ -1,9 +1,9 @@
 package br.com.parakyestacionamento.main;
 
-import java.io.IOException;
-import java.sql.SQLException;
 
 import br.com.parakyestacionamento.hsqldb.ConnectionDBFactory;
+import br.com.parakyestacionamento.properties.AppProperties;
+import br.com.parakyestacionamento.thread.VerifyActualDayThread;
 
 public class Main {
 
@@ -12,12 +12,12 @@ public class Main {
 			try {				
 				ConnectionDBFactory.createDataBase();
 				
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				VerifyActualDayThread payDayThread = new VerifyActualDayThread();
+				payDayThread.start();
+				
+			} catch (Exception e) {
+				System.out.println("Erro ao executar a main :"+e.getMessage());
+				System.out.println(e);
 			} 
 		
 	}
