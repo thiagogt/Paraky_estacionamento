@@ -87,6 +87,30 @@ public class ParkingSpaceModelBD implements BDModel{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	public int updateCostAndPayDay(Object data) throws SQLException{
+		Connection connection = null;
+		try {
+			connection =	ConnectionDBFactory.getDataBaseConnection();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+
+		ParkingSpace parkingSpace = (ParkingSpace)data;
+		PreparedStatement stmt = connection.prepareStatement("update parking_space set pay_day=?, " +
+				"parking_space_cost=? where id_parking_space = ?");
+		stmt.setInt(1, parkingSpace.getPayDay());
+		stmt.setDouble(2, parkingSpace.getParkingSpaceCost());
+		stmt.setInt(3,parkingSpace.getIdParkingSpace());
+		stmt.executeUpdate();
+		
+		connection.close();
+
+		return 0;
+
+	}
 
 	@Override
 	public List<ParkingSpace> selectAll() throws SQLException {

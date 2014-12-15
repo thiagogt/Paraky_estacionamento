@@ -85,7 +85,7 @@ public class ParkingSpaceBean {
 	 		ParakyMessage.addErrorMessage(message);
 	 	else{
 		 	try {
-				model.update(parkingEdited);
+				model.updateCostAndPayDay(parkingEdited);
 				ParakyMessage.addMessage(" Vaga "+parkingEdited.getIdParkingSpace()+" editada com sucesso!");
 			} catch (SQLException e) {
 				ParakyMessage.addErrorMessageSub("Erro ao editar vaga!","Contate o administrador do sistema.");

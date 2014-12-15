@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+	xmlns= "http://www.w3.org/1999/xhtml"  
+	xmlns:f="http://java.sun.com/jsf/core"  
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:head>
+		<link href="../style/style.css" rel="stylesheet" type="text/css"/>
+		<title>Paraky</title>
+			
+	</h:head>
+	<h:body>
+		<h:form id="form">
+			<p:growl id="messages"/>
+			
+			<div class="form_body">
+				<div id="loginForm" style="display:block;">
+				
+						<img id="image_header" src="../images/paraky.svg"  alt="Mountain View" style="width:608px;height:456px;"/>
+					</div>
+				<div style="position:relative;top:12.3em;">
+				<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+					
+					<p:outputLabel for="login" value="Login: " />
+				 	<p:inputText id="login" value="#{loginBean.login}" required="true" requiredMessage="Login necessario!" />
+					<p:outputLabel for="password" value="Senha: " />
+			 		<p:inputText id="password" type="password" value="#{loginBean.password}" required="true" requiredMessage="Senha necessaria!" />
+					
+					
+					
+					 <br/>	
+					<p:commandButton value="Entrar" icon="ui-icon-check" update="form" ajax="false" actionListener="#{loginBean.makeLogin}"/>					
+				</h:panelGrid>
+				</div>
+			</div>
+		</h:form>
+	</h:body>
+</html>

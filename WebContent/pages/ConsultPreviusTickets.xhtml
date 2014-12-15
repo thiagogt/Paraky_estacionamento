@@ -27,9 +27,13 @@
 				
 			</div>
 			
-	
 			<div  id="table" class="data_table_center_page">
-				<p:dataTable id="ticketTable" var="ticket"  value="#{dailyBean.ticketList}" >
+			
+				<p:dataTable id="ticketTable" var="ticket"  value="#{dailyBean.ticketList}" 
+				paginator="true" rows="10"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                 rowsPerPageTemplate="5,10,15"  
+                 sortBy="#{ticket.idDailyParking}" sortOrder="descending">
 				
 			        <p:column headerText="Número ticket" sortBy="#{ticket.idDailyParking}">
 				            <h:outputText value="#{ticket.idDailyParking}" />
@@ -65,7 +69,8 @@
 			             
 			        </p:column>
 			    </p:dataTable>
-			</div>		
+			    
+			</div>
 		</h:form>
 	</h:body>
 </html>

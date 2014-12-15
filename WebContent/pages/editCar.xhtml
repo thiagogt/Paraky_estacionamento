@@ -29,8 +29,11 @@
 			
 			
 			<div  id="table" class="data_table_center_page">
-				<p:dataTable id="carTable" var="car" editable="true" value="#{carBean.carList}" >
-				
+				<p:dataTable id="carTable" var="car" editable="true" value="#{carBean.carList}" 
+				paginator="true" rows="10"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                 rowsPerPageTemplate="5,10,15"  
+                >
 					<p:ajax event="rowEdit" listener="#{carBean.onRowEdit}" update=":form:messages" />
 			        <p:column headerText="Marca" sortBy="#{car.carBrand}">
 				        <p:cellEditor>

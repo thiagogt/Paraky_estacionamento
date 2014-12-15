@@ -28,7 +28,12 @@
 			</div>
 			
 			<div class="data_table_center_page">
-				<p:dataTable var="clientDebt" value="#{monthlyPayment.debtList}" >
+				<p:dataTable var="clientDebt" value="#{monthlyPayment.debtList}" 
+				paginator="true" rows="10"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                 rowsPerPageTemplate="5,10,15"  
+                 sortBy="#{clientDebt.daysOfDebt}" sortOrder="descending">
+				
 			        <p:column headerText="Cliente" sortBy="#{clientDebt.name}">
 			            <h:outputText value="#{clientDebt.name} #{clientDebt.lastName} " />
 			        </p:column>

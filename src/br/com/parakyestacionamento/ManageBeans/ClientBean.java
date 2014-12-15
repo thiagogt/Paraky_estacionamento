@@ -64,6 +64,8 @@ public class ClientBean {
 			 	try {
 					model.update(clientEdited);
 					ParakyMessage.addMessage("Cliente "+clientEdited.getName()+" "+clientEdited.getLastName()+" editado com sucesso!");
+					primaryClientList = null;
+					clientList = null;
 				} catch (SQLException e) {
 					ParakyMessage.addErrorMessageSub("Erro ao editar cliente!","Contate o administrador do sistema.");
 					System.out.println("Erro ao editar cliente:"+clientEdited.getName()+" "+clientEdited.getLastName()+" "+e.getMessage());
@@ -95,7 +97,7 @@ public class ClientBean {
 
 	
 	public List<Client> getPrimaryClientList(){
-		if(clientList == null){
+		if(primaryClientList == null){
 			ClientModelBD clientModel = new ClientModelBD();	
 			try {
 				primaryClientList =  clientModel.selectAllOwners();
@@ -106,8 +108,8 @@ public class ClientBean {
 		return primaryClientList;
 	}
 	
-	public void setPrimaryClientList(List<Client> clientList) {
-		this.primaryClientList = clientList;
+	public void setPrimaryClientList(List<Client> pclientList) {
+		this.primaryClientList = pclientList;
 	}
 	
 	public Client getClientSelected() {

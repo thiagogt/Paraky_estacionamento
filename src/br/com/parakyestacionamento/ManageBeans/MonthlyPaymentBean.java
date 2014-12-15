@@ -1,6 +1,7 @@
 package br.com.parakyestacionamento.ManageBeans;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -31,9 +32,12 @@ public class MonthlyPaymentBean {
 		String count = AppProperties.defaultProps.getProperty("conta.banco");
 		String agency = AppProperties.defaultProps.getProperty("agencia.banco");
 		
+		SimpleDateFormat spf = new SimpleDateFormat("dd/MM/yyyy");
+		String dateString = spf.format(clientDebtSelected.getPaymentDate()); 
+		
 		//TODO: JOgar isso para uma parte de configuracao do site. Nao faz sentido o dono nao poder mudar sua mensagem de email. 
 		String message = "Sr(a). "+clientDebtSelected.getName()+" "+clientDebtSelected.getLastName()+",\n\nPor favor, entre em contato com o Sr. Joao pois a data de pagamento de sua vaga venceu no dia" +
-				" "+clientDebtSelected.getPaymentDate()+"\n\n.O valor de R$"+clientDebtSelected.getParkingSpaceCost()+" da sua mensalidade deve ser pago no:" +
+				" "+dateString+"\n\n.O valor de R$"+clientDebtSelected.getParkingSpaceCost()+" da sua mensalidade deve ser pago no:" +
 				"\n\nBanco: " +bank+
 				"\nAgência: " +agency+
 				"\nConta: "+count+
